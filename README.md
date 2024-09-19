@@ -1,5 +1,8 @@
-# goose-plugins
-Plugins for [Goose][goose]! 
+# Community plugins repository for [Goose][goose] 🧩 
+
+<center>
+    <img src="docs/assets/goose_plugins_repository.png" alt="Goose Plugins Repository" width="500"/>
+</center>
 
 ## Installation
 
@@ -7,13 +10,19 @@ Plugins for [Goose][goose]!
 pipx install goose-plugins --include-deps
 ```
 
-Then to run, 
+To check that the plugins are installed, run
+
+```sh
+goose toolkit list
+```
+
+You should see the `artify` plugin in the list of available toolkits.
+
+Then to run Goose, 
 
 ```sh
 goose session start
 ```
-
-You should see listed the plugins that are available in the `goose-plugins` package.
 
 ## Developing Plugins
 
