@@ -1,5 +1,5 @@
 # goose-plugins
-An example of a personal / private collection of Goose plugins
+Plugins for [Goose][goose]! 
 
 ## Installation
 
@@ -16,6 +16,8 @@ goose session start
 You should see listed the plugins that are available in the `goose-plugins` package.
 
 ## Developing Plugins
+
+[Check out the Goose docs on plugins!][goose-docs]
 
 1. Clone the goose-plugins-exemplar repository and the goose repository
 ```sh
@@ -38,3 +40,5 @@ uv add --editable ~/path/to/goose-plugins
 uv run goose session start
 ```
 
+[goose]: https://github.com/square/goose
+[goose-docs]: https://square.github.io/goose/plugins.html
