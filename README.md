@@ -1,8 +1,8 @@
 # Community plugins repository for [Goose][goose] 🧩 
 
-<center>
+<p align="center">
     <img src="docs/assets/goose_plugins_repository.png" alt="Goose Plugins Repository" width="500"/>
-</center>
+</p>
 
 ## Installation
 
