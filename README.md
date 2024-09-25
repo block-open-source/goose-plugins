@@ -26,7 +26,7 @@ goose session start
 
 ## Developing Plugins
 
-[Check out the Goose docs on plugins!][goose-docs]
+[Check out the Goose docs on plugins!](https://block-open-source.github.io/goose/index.html)
 
 1. Clone the goose-plugins-exemplar repository and the goose repository
 ```sh
