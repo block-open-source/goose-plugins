@@ -45,7 +45,7 @@ goose session start
 1. Clone the goose-plugins-exemplar repository and the goose repository
 ```sh
 git clone https://github.com/block-open-source/goose
-git clone github.com/square/goose-plugins
+git clone https://github.com/block-open-source/goose-plugins
 ```
 2. Create the virtual environment for Goose in the Goose repo
 ```sh
