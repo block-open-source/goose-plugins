@@ -70,9 +70,7 @@ class CriticalSystemsThinking(Toolkit):
         ]
 
         exchange = Exchange(
-            provider=provider,
-            model="claude-3-5-sonnet-20240620",
-            messages=existing_messages_copy, system=None
+            provider=provider, model="claude-3-5-sonnet-20240620", messages=existing_messages_copy, system=None
         )
 
         request_input = f"""
@@ -141,10 +139,7 @@ class CriticalSystemsThinking(Toolkit):
         ]
 
         exchange = Exchange(
-            provider=provider,
-            model="claude-3-5-sonnet-20240620",
-            messages=existing_messages_copy,
-            system=None
+            provider=provider, model="claude-3-5-sonnet-20240620", messages=existing_messages_copy, system=None
         )
 
         request_input = f"""

@@ -12,10 +12,12 @@ def critical_systems_thinking() -> CriticalSystemsThinking:
     toolkit.exchange_view.processor.messages = []
     return toolkit
 
+
 def test_check_status(critical_systems_thinking: CriticalSystemsThinking) -> None:
     result = critical_systems_thinking.check_status()
 
     assert "OK" == result
+
 
 if __name__ == "__main__":
     pytest.main()

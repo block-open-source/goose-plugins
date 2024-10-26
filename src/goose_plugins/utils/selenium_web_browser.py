@@ -7,10 +7,12 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
+
 def chrome_driver_path() -> str:
     return "/opt/homebrew/bin/chromedriver"
 
-def get_web_page_content(url: str, wait_time: int=10) -> str:
+
+def get_web_page_content(url: str, wait_time: int = 10) -> str:
     # Set up Chrome options
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
@@ -27,9 +29,7 @@ def get_web_page_content(url: str, wait_time: int=10) -> str:
         driver.get(url)
 
         # Wait for the page to load
-        WebDriverWait(driver, wait_time).until(
-            expected_conditions.presence_of_element_located((By.TAG_NAME, "body"))
-        )
+        WebDriverWait(driver, wait_time).until(expected_conditions.presence_of_element_located((By.TAG_NAME, "body")))
 
         # Allow some time for JavaScript to execute
         time.sleep(wait_time)
@@ -45,6 +45,7 @@ def get_web_page_content(url: str, wait_time: int=10) -> str:
     finally:
         # Close the browser
         driver.quit()
+
 
 if __name__ == "__main__":
     url = "https://www.google.com"
