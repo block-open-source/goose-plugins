@@ -27,7 +27,6 @@ class CriticalSystemsThinking(Toolkit):
         Returns:
             response (str): A single line response indicating the status of the toolkit.
         """
-        # Create an instance of Exchange with the inlined OpenAI provider
         self.notifier.status("checking status...")
 
         return "OK"
@@ -43,7 +42,6 @@ class CriticalSystemsThinking(Toolkit):
         Returns:
             response (str): A JSON response containing search results.
         """
-        # Create an instance of Exchange with the inlined OpenAI provider
         self.notifier.status("searching...")
 
         return serper_search(query)
@@ -61,13 +59,11 @@ class CriticalSystemsThinking(Toolkit):
         Returns:
             response (str): A well thought out response to the statement or question.
         """
-        # Notify the user that the toolkit is analyzing the request
+
         self.notifier.status("analyzing request...")
 
-        # Create an instance of Exchange with the inlined OpenAI provider
         provider = AnthropicProvider.from_env()
 
-        # Create messages list
         existing_messages_copy = [
             Message(role=msg.role, content=[self.message_content(content) for content in msg.content])
             for msg in self.exchange_view.processor.messages
@@ -95,10 +91,10 @@ class CriticalSystemsThinking(Toolkit):
         Returns:
             response (str): A summary of the content of the web page.
         """
-        # Notify the user that the toolkit is analyzing the request
+
         self.notifier.status(f"fetching content from {url}")
 
-        # Get the full HTML content of the web page
+        # Get the text content of the web page
         web_content = ""
         try:
             web_content = get_web_page_content(url)
@@ -108,12 +104,6 @@ class CriticalSystemsThinking(Toolkit):
         self.notifier.status(f"reviewing content: {web_content[:50]}...")
 
         provider = AnthropicProvider.from_env()
-
-        # Create messages list
-        existing_messages_copy = [
-            Message(role=msg.role, content=[self.message_content(content) for content in msg.content])
-            for msg in self.exchange_view.processor.messages
-        ]
 
         exchange = Exchange(provider=provider, model="claude-3-5-sonnet-20240620", messages=[], system=None)
         request_input = f"""
@@ -134,13 +124,11 @@ class CriticalSystemsThinking(Toolkit):
         Returns:
             response (str): A well thought out response to the statement or question.
         """
-        # Notify the user that the toolkit is analyzing the request
+
         self.notifier.status("considering solutions...")
 
-        # Create an instance of Exchange with the inlined OpenAI provider
         provider = AnthropicProvider.from_env()
 
-        # Create messages list
         existing_messages_copy = [
             Message(role=msg.role, content=[self.message_content(content) for content in msg.content])
             for msg in self.exchange_view.processor.messages
