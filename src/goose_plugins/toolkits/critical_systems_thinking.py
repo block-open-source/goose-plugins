@@ -58,7 +58,7 @@ class CriticalSystemsThinking(Toolkit):
             provider=provider,
             model="claude-3-5-sonnet-20240620",
             messages=existing_messages_copy,
-            system=self.system_prompt()
+            system=self.system_prompt(),
         )
 
         request_input = f"""

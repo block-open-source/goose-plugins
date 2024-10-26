@@ -33,11 +33,8 @@ def test_message_content_with_other_content(critical_systems_thinking: CriticalS
     assert result.text == "test content"
 
 
-@patch('goose_plugins.toolkits.critical_systems_thinking.serper_search')
-def test_search(
-    mock_serper_search: Mock,
-    critical_systems_thinking: CriticalSystemsThinking
-) -> None:
+@patch("goose_plugins.toolkits.critical_systems_thinking.serper_search")
+def test_search(mock_serper_search: Mock, critical_systems_thinking: CriticalSystemsThinking) -> None:
     expected_response: str = '{"results": []}'
     mock_serper_search.return_value = expected_response
     query: str = "test query"
@@ -49,18 +46,15 @@ def test_search(
     critical_systems_thinking.notifier.status.assert_called_once_with("searching...")
 
 
-@patch('goose_plugins.toolkits.critical_systems_thinking.AnthropicProvider')
-def test_analyze_request(
-    mock_provider_class: Mock,
-    critical_systems_thinking: CriticalSystemsThinking
-) -> None:
+@patch("goose_plugins.toolkits.critical_systems_thinking.AnthropicProvider")
+def test_analyze_request(mock_provider_class: Mock, critical_systems_thinking: CriticalSystemsThinking) -> None:
     expected_analysis: str = "Analysis result"
     mock_provider: Mock = Mock()
     mock_provider_class.from_env.return_value = mock_provider
     mock_response: Mock = Mock()
     mock_response.content = [Text(expected_analysis)]
 
-    with patch('goose_plugins.toolkits.critical_systems_thinking.ask_an_ai') as mock_ask:
+    with patch("goose_plugins.toolkits.critical_systems_thinking.ask_an_ai") as mock_ask:
         mock_ask.return_value = mock_response
         statement: str = "test statement"
 
@@ -70,16 +64,14 @@ def test_analyze_request(
         critical_systems_thinking.notifier.status.assert_called_with("analyzing request...")
 
         call_args: Any = mock_ask.call_args
-        assert statement in call_args[1]['input']
-        assert isinstance(call_args[1]['exchange'], Exchange)
+        assert statement in call_args[1]["input"]
+        assert isinstance(call_args[1]["exchange"], Exchange)
 
 
-@patch('goose_plugins.toolkits.critical_systems_thinking.get_web_page_content')
-@patch('goose_plugins.toolkits.critical_systems_thinking.AnthropicProvider')
+@patch("goose_plugins.toolkits.critical_systems_thinking.get_web_page_content")
+@patch("goose_plugins.toolkits.critical_systems_thinking.AnthropicProvider")
 def test_review_web_page(
-    mock_provider_class: Mock,
-    mock_get_content: Mock,
-    critical_systems_thinking: CriticalSystemsThinking
+    mock_provider_class: Mock, mock_get_content: Mock, critical_systems_thinking: CriticalSystemsThinking
 ) -> None:
     web_content: str = "Sample web content"
     expected_summary: str = "Page summary"
@@ -91,7 +83,7 @@ def test_review_web_page(
     mock_response: Mock = Mock()
     mock_response.content = [Text(expected_summary)]
 
-    with patch('goose_plugins.toolkits.critical_systems_thinking.ask_an_ai') as mock_ask:
+    with patch("goose_plugins.toolkits.critical_systems_thinking.ask_an_ai") as mock_ask:
         mock_ask.return_value = mock_response
 
         result: str = critical_systems_thinking.review_web_page(url)
@@ -102,11 +94,8 @@ def test_review_web_page(
         critical_systems_thinking.notifier.status.assert_any_call(f"reviewing content: {web_content[:50]}...")
 
 
-@patch('goose_plugins.toolkits.critical_systems_thinking.get_web_page_content')
-def test_review_web_page_error(
-    mock_get_content: Mock,
-    critical_systems_thinking: CriticalSystemsThinking
-) -> None:
+@patch("goose_plugins.toolkits.critical_systems_thinking.get_web_page_content")
+def test_review_web_page_error(mock_get_content: Mock, critical_systems_thinking: CriticalSystemsThinking) -> None:
     error_message: str = "Failed to fetch"
     url: str = "http://example.com"
     mock_get_content.side_effect = Exception(error_message)
@@ -117,18 +106,15 @@ def test_review_web_page_error(
     mock_get_content.assert_called_once_with(url)
 
 
-@patch('goose_plugins.toolkits.critical_systems_thinking.AnthropicProvider')
-def test_consider_solutions(
-    mock_provider_class: Mock,
-    critical_systems_thinking: CriticalSystemsThinking
-) -> None:
+@patch("goose_plugins.toolkits.critical_systems_thinking.AnthropicProvider")
+def test_consider_solutions(mock_provider_class: Mock, critical_systems_thinking: CriticalSystemsThinking) -> None:
     expected_solution: str = "Solution analysis"
     mock_provider: Mock = Mock()
     mock_provider_class.from_env.return_value = mock_provider
     mock_response: Mock = Mock()
     mock_response.content = [Text(expected_solution)]
 
-    with patch('goose_plugins.toolkits.critical_systems_thinking.ask_an_ai') as mock_ask:
+    with patch("goose_plugins.toolkits.critical_systems_thinking.ask_an_ai") as mock_ask:
         mock_ask.return_value = mock_response
         statement: str = "test problem"
 
@@ -138,14 +124,14 @@ def test_consider_solutions(
         critical_systems_thinking.notifier.status.assert_called_with("considering solutions...")
 
         call_args: Any = mock_ask.call_args
-        assert statement in call_args[1]['input']
-        assert isinstance(call_args[1]['exchange'], Exchange)
+        assert statement in call_args[1]["input"]
+        assert isinstance(call_args[1]["exchange"], Exchange)
 
 
 def test_system_prompt(critical_systems_thinking: CriticalSystemsThinking) -> None:
     expected_prompt: str = "System prompt content"
 
-    with patch('exchange.Message.load') as mock_load:
+    with patch("exchange.Message.load") as mock_load:
         mock_message: Mock = Mock()
         mock_message.text = expected_prompt
         mock_load.return_value = mock_message
