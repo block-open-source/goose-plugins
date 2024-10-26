@@ -73,14 +73,14 @@ Check out the [Goose docs on plugins!](https://block-open-source.github.io/goose
 
 1. [Fork][fork] the repositories and clone to your local machine.
 
-```shell
+```sh
 git clone https://github.com/block/goose
 git clone https://github.com/block-open-source/goose-plugins
 ```
 
 2. Create the virtual environment in each repository using `uv`.
 
-```shell
+```sh
 uv sync
 uv venv
 ```
@@ -89,13 +89,13 @@ Run the `source ... activate` command that is output by the `uv venv` command
 
 3. Install the goose community plugins in editable mode
 
-```shell
+```sh
 uv add --editable ~/path/to/goose-plugins
 ```
 
 4. Run goose via `uv run` to iteratively develop your plugin
 
-```shell
+```sh
 uv run goose session start
 ```
 
