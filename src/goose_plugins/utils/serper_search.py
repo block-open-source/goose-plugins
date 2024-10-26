@@ -2,7 +2,7 @@ import os
 import json
 import requests
 
-def serper_search(query):
+def serper_search(query: str) -> str:
   payload = json.dumps({ 'q': query })
   headers = {
     'X-API-KEY': os.getenv('SERPER_API_KEY'),

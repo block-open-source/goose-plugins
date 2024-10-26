@@ -2,15 +2,15 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-def chrome_driver_path():
+def chrome_driver_path() -> str:
     return "/opt/homebrew/bin/chromedriver"
-    
-def get_web_page_content(url, wait_time=10):
+
+def get_web_page_content(url: str, wait_time: int=10) -> str:
     # Set up Chrome options
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
@@ -28,7 +28,7 @@ def get_web_page_content(url, wait_time=10):
 
         # Wait for the page to load
         WebDriverWait(driver, wait_time).until(
-            EC.presence_of_element_located((By.TAG_NAME, "body"))
+            expected_conditions.presence_of_element_located((By.TAG_NAME, "body"))
         )
 
         # Allow some time for JavaScript to execute

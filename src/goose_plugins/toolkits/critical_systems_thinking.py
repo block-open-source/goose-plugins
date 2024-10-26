@@ -15,7 +15,7 @@ class CriticalSystemsThinking(Toolkit):
             return content
         else:
             return Text(str(content))
-    
+
     @tool
     def check_status(self) -> str:
         """
@@ -49,7 +49,7 @@ class CriticalSystemsThinking(Toolkit):
     @tool
     def analyze_request(self, statement: str) -> str:
         """
-        When a request is unclear, high-level or ambiguous use this tool to 
+        When a request is unclear, high-level or ambiguous use this tool to
         analyze the response and provide a well thought out response. You should
         return a well thought out response to the statement or question.
 
@@ -69,10 +69,16 @@ class CriticalSystemsThinking(Toolkit):
             for msg in self.exchange_view.processor.messages
         ]
 
-        exchange = Exchange(provider=provider, model="claude-3-5-sonnet-20240620", messages=existing_messages_copy, system=None)
+        exchange = Exchange(
+            provider=provider,
+            model="claude-3-5-sonnet-20240620",
+            messages=existing_messages_copy, system=None
+        )
+
         request_input = f"""
           Analyze the user statement: {statement}
-          If you need to immediately clarify something and it's something short and simple, respond with your question(s).
+          If you need to immediately clarify something and it's something
+          short and simple, respond with your question(s).
           If you need multiple questions, you can ask multiple questions.
           Please bullet point your questions.
           Limit your response to 5 questions.
@@ -115,7 +121,7 @@ class CriticalSystemsThinking(Toolkit):
     @tool
     def consider_solutions(self, statement: str) -> str:
         """
-        Provide a well thought out response to the statement summarize the 
+        Provide a well thought out response to the statement summarize the
         problem and provide a solution or a set of solutions.
 
         Args:
@@ -134,7 +140,13 @@ class CriticalSystemsThinking(Toolkit):
             for msg in self.exchange_view.processor.messages
         ]
 
-        exchange = Exchange(provider=provider, model="claude-3-5-sonnet-20240620", messages=existing_messages_copy, system=None)
+        exchange = Exchange(
+            provider=provider,
+            model="claude-3-5-sonnet-20240620",
+            messages=existing_messages_copy,
+            system=None
+        )
+
         request_input = f"""
           Analyze the user statement: {statement}
           Consider the existing message history and provide a well thought out response.
