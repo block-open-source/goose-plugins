@@ -47,6 +47,54 @@ To run the test suite against your edges, use `pytest`:
 uv run pytest tests
 ```
 
+## Opening a Pull Request
+
+1. Create a new branch for your changes:
+
+   ```sh
+   git checkout -b feature/your-feature-name
+   ```
+
+2. Make your changes and ensure all tests pass:
+
+   ```sh
+   uv run pytest tests
+   ```
+
+3. Format your code using ruff:
+
+   ```sh
+   uv run ruff format .
+   ```
+
+4. Commit your changes following the [Conventional Commits](#conventional-commits) specification:
+
+   ```sh
+   git commit -m "feat: add new feature"
+   ```
+
+5. Push your changes to your fork:
+
+   ```sh
+   git push origin feature/your-feature-name
+   ```
+
+6. Visit the original repository on GitHub and click "New Pull Request"
+
+7. Select your fork and the feature branch containing your changes
+
+8. Fill out the pull request template with:
+
+   - A clear title following Conventional Commits
+   - A description of your changes
+   - Any related issues
+   - Testing steps
+   - Screenshots (if applicable)
+
+9. Submit the pull request and wait for review
+
+10. Address any feedback or requested changes from maintainers
+
 ## Evaluations
 
 Given that so much of Goose involves interactions with LLMs, our unit tests only go so far to confirming things work as intended.
@@ -60,6 +108,14 @@ Additions to the [developer toolkit][developer] change the core performance, and
 ## Conventional Commits
 
 This project follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for PR titles. Conventional Commits make it easier to understand the history of a project and facilitate automation around versioning and changelog generation.
+
+Common types include:
+
+- `feat:` for new features
+- `fix:` for bug fixes
+- `docs:` for documentation changes
+- `test:` for adding or modifying tests
+- `chore:` for routine tasks and maintenance
 
 ## Release
 
@@ -79,3 +135,4 @@ This repo has a GitHub action that will automatically create a new release and p
 [just]: https://github.com/casey/just
 [adding-toolkit]: https://block.github.io/goose/configuration.html#adding-a-toolkit
 [goose-docs]: https://block.github.io/goose/
+[fork]: https://github.com/block/goose/fork
