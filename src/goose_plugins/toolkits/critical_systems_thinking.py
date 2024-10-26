@@ -17,18 +17,6 @@ class CriticalSystemsThinking(Toolkit):
             return Text(str(content))
 
     @tool
-    def check_status(self) -> str:
-        """
-        Check the status of the toolkit. Returns only "status: ok" if everything is working fine.
-
-        Returns:
-            response (str): A single line response indicating the status of the toolkit.
-        """
-        self.notifier.status("checking status...")
-
-        return "OK"
-
-    @tool
     def search(self, query: str) -> str:
         """
         Search the web for information using the Serper API. This will return a list of search results.
@@ -67,7 +55,10 @@ class CriticalSystemsThinking(Toolkit):
         ]
 
         exchange = Exchange(
-            provider=provider, model="claude-3-5-sonnet-20240620", messages=existing_messages_copy, system=None
+            provider=provider,
+            model="claude-3-5-sonnet-20240620",
+            messages=existing_messages_copy,
+            system=self.system_prompt()
         )
 
         request_input = f"""
