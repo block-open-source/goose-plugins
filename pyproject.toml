@@ -6,7 +6,10 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "ai-exchange>=0.8.4",
-    "goose-ai>=0.9.0",
+    "goose-ai>=0.9.8",
+    "requests>=2.32.3",
+    "selenium>=4.25.0",
+    "webdriver-manager>=4.0.2",
 ]
 author = [{ name = "Block", email = "ai-oss-tools@block.xyz" }]
 packages = [{ include = "goose_plugins", from = "src" }]
@@ -19,6 +22,7 @@ goose-plugins = "goose_plugins:module_name"
 
 [project.entry-points."goose.toolkit"]
 artify = "goose_plugins.toolkits.artify:VincentVanCode"
+critical_systems_thinking = "goose_plugins.toolkits.critical_systems_thinking:CriticalSystemsThinking"
 
 
 [build-system]
