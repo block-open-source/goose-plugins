@@ -65,11 +65,10 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 
 In order to release a new version of goose, you need to do the following:
 
-1. Update CHANGELOG.md. To get the commit messages since last release, run: `just release-notes`
-2. Update version in `pyproject.toml` for `goose` and package dependencies such as `exchange`
-3. Create a PR and merge it into main branch
-4. Tag the HEAD commit in main branch. To do this, switch to main branch and run: `just tag-push`
-5. Publish a new release from the [Github Release UI](https://github.com/block/goose/releases)
+1. Update version in `pyproject.toml` for `goose` and package dependencies such as `exchange`
+2. Create a PR and merge it into main branch
+
+This repo has a GitHub action that will automatically create a new release and publish the package to PyPI. These packages are not considered stable and are not recommended for production use.
 
 [issues]: https://github.com/block/goose/issues
 [goose-plugins]: https://github.com/block-open-source/goose-plugins
