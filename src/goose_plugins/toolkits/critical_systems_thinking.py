@@ -8,7 +8,7 @@ from goose_plugins.utils.serper_search import serper_search
 
 
 class CriticalSystemsThinking(Toolkit):
-    """Critical Systems Thinking Toolkit for building and managing complex problems and systems."""
+    """Critical systems thinking toolkit for understanding and solving complex problems."""
 
     def message_content(self, content: Content) -> Text:
         if isinstance(content, Text):
