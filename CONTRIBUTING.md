@@ -44,7 +44,13 @@ uv run goose session start
 To run the test suite against your edges, use `pytest`:
 
 ```sh
-uv run pytest tests
+uv run pytest tests -m "not integration"
+```
+
+or use `just`
+
+```sh
+just test
 ```
 
 ## Opening a Pull Request
