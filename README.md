@@ -69,7 +69,7 @@ uv run goose session start
 
 ## Developing Plugins
 
-Check out the [Goose docs on plugins!](https://block-open-source.github.io/goose/plugins/plugins.html) for more information on developing plugins.
+Check out the [Goose docs on plugins!](https://block.github.io/goose/plugins/plugins.html) for more information on developing plugins.
 
 1. [Fork][fork] the repositories and clone to your local machine.
 
