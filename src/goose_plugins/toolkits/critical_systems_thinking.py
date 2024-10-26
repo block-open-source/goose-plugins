@@ -21,9 +21,6 @@ class CriticalSystemsThinking(Toolkit):
         """
         Check the status of the toolkit. Returns only "status: ok" if everything is working fine.
 
-        Args:
-            statement (str): Additional context or information to check status.
-
         Returns:
             response (str): A single line response indicating the status of the toolkit.
         """
