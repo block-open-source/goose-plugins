@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Goose Community Content</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-8">🦢 Goose Community Content</h1>
+        <p class="mb-8 text-gray-600">See how developers are using Goose in the wild! <a href="https://github.com/your-repo/content.json" class="text-blue-600 hover:underline">Submit your content →</a></p>
+        <div id="content" class="grid gap-6"></div>
+    </div>
+
+    <script>
+        async function loadContent() {
+            const response = await fetch('content.json');
+            const data = await response.json();
+            
+            const contentDiv = document.getElementById('content');
+            
+            data.content.sort((a, b) => new Date(b.date) - new Date(a.date))
+                .forEach(item => {
+                    contentDiv.innerHTML += `
+                        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-blue-600">${item.type}</span>
+                                <span class="text-sm text-gray-500">${item.date}</span>
+                            </div>
+                            <h2 class="text-xl font-semibold mt-2">
+                                <a href="${item.link}" target="_blank" class="hover:text-blue-600">
+                                    ${item.title}
+                                </a>
+                            </h2>
+                            <p class="text-gray-600 mt-2">${item.description}</p>
+                            <div class="mt-4 flex items-center">
+                                <span class="text-sm text-gray-500">By @${item.author}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+        }
+
+        loadContent();
+    </script>
+</body>
+</html>
