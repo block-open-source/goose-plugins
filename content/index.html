@@ -28,25 +28,26 @@
             const data = await response.json();
             
             const contentDiv = document.getElementById('content');
-            data.content.forEach(item => {
-                contentDiv.innerHTML += `
-                    <div class="bg-white p-6 rounded-lg shadow-sm content-item" data-type="${item.type}">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-blue-600">${item.type}</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <img src="${item.thumbnail}" alt="" class="w-32 h-24 object-cover rounded"/>
-                            <div>
-                                <h2 class="text-xl font-semibold mt-2">
-                                    <a href="${item.link}" target="_blank" class="hover:text-blue-600">
-                                        ${item.title}
-                                    </a>
-                                </h2>
-                                <p class="text-gray-600 mt-2">By ${item.contributor}</p>
-                            </div>
+            contentDiv.innerHTML += `
+                <div 
+                    class="bg-white p-6 rounded-lg shadow-sm content-item hover:shadow-md transition-shadow cursor-pointer" 
+                    data-type="${item.type}"
+                    onclick="window.open('${item.link}', '_blank')"
+                >
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-blue-600">${item.type}</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <img src="${item.thumbnail}" alt="" class="w-32 h-24 object-cover rounded"/>
+                        <div>
+                            <h2 class="text-xl font-semibold mt-2 hover:text-blue-600">
+                                ${item.title}
+                            </h2>
+                            <p class="text-gray-600 mt-2">By ${item.contributor}</p>
                         </div>
                     </div>
-                `;
+                </div>
+            `;
             });
         }
 
