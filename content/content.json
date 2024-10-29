@@ -6,6 +6,27 @@
       "title": "Should we open source AI?",
       "link": "https://dev.to/blackgirlbytes/should-we-open-source-ai-hed",
       "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "video",
+      "thumbnail": "https://img.youtube.com/vi/Z4jF4SrbY2c/maxresdefault.jpg",
+      "title": "Upgrade U: Supercharging IntelliJ with an Open Source AI Agent",
+      "link": "https://www.youtube.com/watch?v=Z4jF4SrbY2c",
+      "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "video",
+      "thumbnail": "https://img.youtube.com/vi/lppDgrHY88Y/maxresdefault.jpg",
+      "title": "How to Build an AI-Powered GitHub Action",
+      "link": "https://www.youtube.com/watch?v=lppDgrHY88Y",
+      "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "social",
+      "thumbnail": "./img/X-space-opensource-ai.png",
+      "title": "How You Can Shape the Future of Open Source AI #Hacktoberfest",
+      "link": "https://x.com/blackgirlbytes/status/1838656919348875545",
+      "contributor": "Rizel Scarlett"
     }
   ]
 }
