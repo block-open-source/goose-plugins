@@ -36,7 +36,7 @@
                                 <span class="text-sm text-blue-600">${item.type}</span>
                             </div>
                             <div class="flex gap-4">
-                                <div class="w-32 h-32 flex-shrink-0 bg-gray-100">
+                                <div class="w-48 h-32 flex-shrink-0 bg-gray-100">
                                     <img 
                                         src="${item.thumbnail}" 
                                         alt="${item.title}"
@@ -55,7 +55,7 @@
                 `;
             });
         }
-        
+                
         function filterContent(type) {
             const items = document.querySelectorAll('.content-item');
             items.forEach(item => {
