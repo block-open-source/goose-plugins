@@ -31,15 +31,18 @@
             data.content.forEach(item => {
                 contentDiv.innerHTML += `
                     <a href="${item.link}" target="_blank" class="block no-underline">
-                        <div 
-                            class="bg-white p-6 rounded-lg shadow-sm content-item hover:shadow-md transition-shadow cursor-pointer" 
-                            data-type="${item.type}"
-                        >
+                        <div class="bg-white p-6 rounded-lg shadow-sm content-item hover:shadow-md transition-shadow cursor-pointer" data-type="${item.type}">
                             <div class="flex items-center justify-between">
                                 <span class="text-sm text-blue-600">${item.type}</span>
                             </div>
                             <div class="flex gap-4">
-                                <img src="${item.thumbnail}" alt="" class="w-32 h-24 object-cover rounded"/>
+                                <div class="w-32 h-32 flex-shrink-0 bg-gray-100">
+                                    <img 
+                                        src="${item.thumbnail}" 
+                                        alt="${item.title}"
+                                        class="w-full h-full object-contain rounded"
+                                    />
+                                </div>
                                 <div>
                                     <h2 class="text-xl font-semibold mt-2 hover:text-blue-600">
                                         ${item.title}
@@ -52,7 +55,7 @@
                 `;
             });
         }
-
+        
         function filterContent(type) {
             const items = document.querySelectorAll('.content-item');
             items.forEach(item => {
