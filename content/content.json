@@ -30,6 +30,13 @@
     },
     {
       "type": "blog",
+      "thumbnail": "./img/Goose.png",
+      "title": "My Beginner Journey with Goose",
+      "link": "https://dev.to/kiran_baliga/my-beginner-journey-with-goose-a-new-tool-for-my-devops-learning-path-3194",
+      "contributor": "Kiran Baliga"
+    },
+    {
+      "type": "blog",
       "thumbnail": "https://dev-to-uploads.s3.amazonaws.com/uploads/articles/73stdcqp8ek29digbsj1.png",
       "title": "Beyond LLMs: My Introductory Experience with AI Agents",
       "link": "https://dev.to/blackgirlbytes/beyond-llms-my-introductory-experience-with-ai-agents-1fjb",
