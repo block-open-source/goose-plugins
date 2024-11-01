@@ -8,7 +8,7 @@
 
 `goose-plugins` is participating in Loose Goose November 2024! 🪿 We’re so excited for your contributions, and have created a wide variety of content issues so that anyone can contribute. Whether you're a seasoned developer or a first-time open source contributor, there's something for everyone. 
 
-### This event is open to both Block employees and external contributors! 🦢
+### This event is open to both employees and external contributors! 🦢
 
 ### To get started:
 
