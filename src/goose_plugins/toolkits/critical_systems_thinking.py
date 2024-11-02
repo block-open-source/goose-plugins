@@ -83,34 +83,74 @@ class CriticalSystemsThinking(Toolkit):
         os.system(f"osascript -e '{dialog_command}'")
 
     @tool
-    def autonomous_loop(self, task_description: str, duration: str = "10s") -> str:
+    def autonomous_loop(self, task_description: str, interval: str = "30s", max_iterations: int = 10) -> str:
         """
-        Run a task autonomously in the background and trigger an Apple dialog box after the specified duration.
+        Run a task autonomously in the background, continuously working on a problem and building a final answer.
 
         Args:
-            task_description (str): A description of the task to be simulated.
-            duration (str): The duration of the task. Format: "<number><unit>".
+            task_description (str): A description of the task to be performed.
+            interval (str): The interval between each iteration. Format: "<number><unit>".
                             Units: 's' for seconds, 'm' for minutes, 'h' for hours.
-                            Examples: "30s", "5m", "1h". Default: "10s".
+                            Examples: "30s", "5m", "1h". Default: "30s".
+            max_iterations (int): The maximum number of iterations to perform. Default: 10.
 
         Returns:
-            str: A message indicating the task has been started.
+            str: A message indicating the continuous background task has been started.
         """
-        duration_seconds = self._parse_duration(duration)
+        interval_seconds = self._parse_duration(interval)
         task_id = f"task_{int(time.time())}"
 
-        def background_task():
-            time.sleep(duration_seconds)
-            response = self._ask_ai(f"Simulate a response to task_description: {task_description}")
-            self._trigger_apple_dialog("Task Completed", "Task completed")
-            self.complete_task(task_id, f"Task '{task_description}' completed.")
+        def continuous_background_task():
+            iteration = 0
+            final_answer = ""
+            while iteration < max_iterations:
+                iteration += 1
+                self.notify(f"Starting iteration {iteration} of {max_iterations}")
+                
+                # Perform analysis and build upon the final answer
+                analysis = self._perform_analysis(task_description, final_answer)
+                final_answer += f"\n\nIteration {iteration} result:\n{analysis}"
+                
+                self.notify(f"Iteration {iteration} completed. Waiting for {interval} before next iteration.")
+                time.sleep(interval_seconds)
+            
+            self._trigger_apple_dialog("Task Completed", f"Continuous task completed after {max_iterations} iterations.")
+            self.complete_task(task_id, f"Continuous task '{task_description}' completed. Final answer: {final_answer}")
 
         self.autonomous_mode = True
-        self.notify(f"Starting background task: {task_description}")
-        self.add_task(task_id, task_description, duration_seconds)
+        self.notify(f"Starting continuous background task: {task_description}")
+        self.add_task(task_id, task_description, interval_seconds * max_iterations)
         
-        threading.Thread(target=background_task).start()
-        return f"Background task '{task_description}' (ID: {task_id}) has been started with a duration of {duration}."
+        threading.Thread(target=continuous_background_task).start()
+        return f"Continuous background task '{task_description}' (ID: {task_id}) has been started with {max_iterations} iterations and {interval} interval."
+
+    def _perform_analysis(self, task_description: str, current_answer: str) -> str:
+        """
+        Perform analysis for a single iteration of the continuous background task.
+        This method can invoke other tools as needed.
+        """
+        prompt = f"""
+        Task description: {task_description}
+        Current progress: {current_answer}
+
+        Analyze the current progress and provide the next step or insight for solving the problem.
+        You can use any of the available tools to gather more information or perform specific analyses.
+        Return your analysis and any tool results in a concise manner.
+        """
+        
+        analysis = self._ask_ai(prompt, include_history=True)
+        
+        # Example of invoking other tools within the analysis
+        if "need more information" in analysis.lower():
+            search_query = f"latest information about {task_description}"
+            search_results = self.search(search_query)
+            analysis += f"\n\nAdditional information from search:\n{search_results}"
+        
+        if "stakeholder analysis needed" in analysis.lower():
+            stakeholder_analysis = self.stakeholder_analysis(task_description)
+            analysis += f"\n\nStakeholder analysis results:\n{stakeholder_analysis}"
+        
+        return analysis
 
     def _format_task_status(self, task_id: str, task: dict, current_time: float) -> str:
         """Format a single task's status."""
