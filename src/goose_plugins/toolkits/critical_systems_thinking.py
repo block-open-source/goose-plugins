@@ -7,6 +7,7 @@ from goose_plugins.utils.selenium_web_browser import get_web_page_content
 from goose_plugins.utils.serper_search import serper_search
 import queue
 import time
+import threading
 
 
 class CriticalSystemsThinking(Toolkit):
@@ -16,6 +17,8 @@ class CriticalSystemsThinking(Toolkit):
         super().__init__(*args, **kwargs)
         self.task_queue = queue.Queue()
         self.autonomous_mode = False
+        self.ongoing_tasks = {}
+        self.completed_tasks = []
 
     def message_content(self, content: Content) -> Text:
         if isinstance(content, Text):
@@ -27,9 +30,21 @@ class CriticalSystemsThinking(Toolkit):
         """Standardized notification method for concise status updates."""
         self.notifier.status(f"[CST] {message[:50]}...")
 
-    def add_task(self, task):
-        """Add a task to the queue."""
-        self.task_queue.put(task)
+    def add_task(self, task_id, task_description, duration):
+        """Add a task to the ongoing tasks dictionary."""
+        self.ongoing_tasks[task_id] = {
+            "description": task_description,
+            "start_time": time.time(),
+            "duration": duration
+        }
+
+    def complete_task(self, task_id, result):
+        """Move a task from ongoing to completed."""
+        if task_id in self.ongoing_tasks:
+            task = self.ongoing_tasks.pop(task_id)
+            task["result"] = result
+            task["end_time"] = time.time()
+            self.completed_tasks.append(task)
 
     def notify_user(self, message):
         """Notify the user when help is needed."""
@@ -48,34 +63,59 @@ class CriticalSystemsThinking(Toolkit):
         Returns:
             str: A message indicating the task has been started.
         """
+        task_id = f"task_{int(time.time())}"
+
         def background_task():
             start_time = time.time()
             while time.time() - start_time < duration:
                 time.sleep(1)
                 if not self.autonomous_mode:
-                    return f"Task '{task_description}' was interrupted and stopped."
-            return f"Task '{task_description}' completed successfully after {duration} seconds."
+                    self.complete_task(task_id, f"Task '{task_description}' was interrupted and stopped.")
+                    return
+            self.complete_task(task_id, f"Task '{task_description}' completed successfully after {duration} seconds.")
 
         self.autonomous_mode = True
         self.notify(f"Starting background task: {task_description}")
+        self.add_task(task_id, task_description, duration)
         
         # Start the background task in a separate thread
-        import threading
-        thread = threading.Thread(target=lambda: self.add_task(background_task()))
+        thread = threading.Thread(target=background_task)
         thread.start()
 
-        return f"Background task '{task_description}' has been started and will run for approximately {duration} seconds. You can continue interacting while it's running."
+        return f"Background task '{task_description}' (ID: {task_id}) has been started and will run for approximately {duration} seconds. You can continue interacting while it's running."
 
-    def add_task(self, task):
-        """Add a task result to the queue."""
-        self.task_queue.put(task)
+    @tool
+    def get_background_job_status(self):
+        """
+        Get the status of all background jobs (ongoing and completed).
+
+        Returns:
+            str: A formatted string containing the status of all background jobs.
+        """
+        current_time = time.time()
+        status = "Background Job Status:\n\n"
+
+        status += "Ongoing Tasks:\n"
+        for task_id, task in self.ongoing_tasks.items():
+            elapsed_time = current_time - task["start_time"]
+            remaining_time = max(0, task["duration"] - elapsed_time)
+            status += f"- Task ID: {task_id}\n"
+            status += f"  Description: {task['description']}\n"
+            status += f"  Elapsed Time: {elapsed_time:.2f} seconds\n"
+            status += f"  Remaining Time: {remaining_time:.2f} seconds\n\n"
+
+        status += "Completed Tasks:\n"
+        for task in self.completed_tasks:
+            status += f"- Task ID: {task['description']}\n"
+            status += f"  Description: {task['description']}\n"
+            status += f"  Duration: {task['end_time'] - task['start_time']:.2f} seconds\n"
+            status += f"  Result: {task['result']}\n\n"
+
+        return status
 
     def check_task_status(self):
         """Check if any tasks have completed and return their results."""
-        completed_tasks = []
-        while not self.task_queue.empty():
-            completed_tasks.append(self.task_queue.get())
-        return completed_tasks
+        return [task["result"] for task in self.completed_tasks]
 
     @tool
     def structured_analysis(self, problem: str) -> str:
