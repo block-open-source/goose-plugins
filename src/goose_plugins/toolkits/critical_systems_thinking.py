@@ -152,7 +152,7 @@ class CriticalSystemsThinking(Toolkit, SearchTools, AnalysisTools, TaskManagemen
         Returns:
             response (str): The refined answer from the language model.
         """
-        self.log_tool_call("_call_llm", {"prompt": prompt[:50] + "..."})  # Log first 50 chars of prompt
+        # self.log_tool_call("_call_llm", {"prompt": prompt[:50] + "..."})  # Log first 50 chars of prompt
         return self._ask_ai(prompt, include_history=True, system=self.system_prompt())
 
     def _check_stop_condition(self, task_description: str, current_answer: str, 

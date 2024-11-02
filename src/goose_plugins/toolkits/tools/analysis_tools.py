@@ -14,6 +14,7 @@ class AnalysisTools:
             response (str): A JSON string containing the structured analysis.
         """
         self.notify("Performing structured analysis")
+        self.log_tool_call("structured_analysis", {"problem": problem})
         return self._ask_ai(create_analysis_prompt("structured", p=problem))
 
     @tool
@@ -29,6 +30,7 @@ class AnalysisTools:
             response (str): A well thought out response to the statement or question.
         """
         self.notifier.status("analyzing request...")
+        self.log_tool_call("analyze_request", {"statement": statement})
         return self._ask_ai(
             create_analysis_prompt("request", s=statement),
             include_history=True,
@@ -48,6 +50,7 @@ class AnalysisTools:
             response (str): A well thought out response to the statement or question.
         """
         self.notifier.status("considering solutions...")
+        self.log_tool_call("consider_solutions", {"statement": statement})
         return self._ask_ai(
             create_analysis_prompt("solutions", s=statement),
             include_history=True
