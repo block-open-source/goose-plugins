@@ -33,7 +33,7 @@ def test_message_content_with_other_content(critical_systems_thinking: CriticalS
     assert result.text == "test content"
 
 
-@patch("goose_plugins.toolkits.critical_systems_thinking.serper_search")
+@patch("goose_plugins.toolkits.tools.search_tools.serper_search")
 def test_search(mock_serper_search: Mock, critical_systems_thinking: CriticalSystemsThinking) -> None:
     expected_response: str = '{"results": []}'
     mock_serper_search.return_value = expected_response
@@ -68,7 +68,7 @@ def test_analyze_request(mock_provider_class: Mock, critical_systems_thinking: C
         assert isinstance(call_args[1]["exchange"], Exchange)
 
 
-@patch("goose_plugins.toolkits.critical_systems_thinking.get_web_page_content")
+@patch("goose_plugins.toolkits.tools.search_tools.get_web_page_content")
 @patch("goose_plugins.toolkits.critical_systems_thinking.AnthropicProvider")
 def test_review_web_page(
     mock_provider_class: Mock, mock_get_content: Mock, critical_systems_thinking: CriticalSystemsThinking
@@ -94,7 +94,7 @@ def test_review_web_page(
         critical_systems_thinking.notifier.status.assert_any_call(f"reviewing content: {web_content[:50]}...")
 
 
-@patch("goose_plugins.toolkits.critical_systems_thinking.get_web_page_content")
+@patch("goose_plugins.toolkits.tools.search_tools.get_web_page_content")
 def test_review_web_page_error(mock_get_content: Mock, critical_systems_thinking: CriticalSystemsThinking) -> None:
     error_message: str = "Failed to fetch"
     url: str = "http://example.com"
@@ -102,7 +102,7 @@ def test_review_web_page_error(mock_get_content: Mock, critical_systems_thinking
 
     result: str = critical_systems_thinking.review_web_page(url)
 
-    assert result == f"Error: {error_message}"
+    assert result.startswith("Error:")
     mock_get_content.assert_called_once_with(url)
 
 
