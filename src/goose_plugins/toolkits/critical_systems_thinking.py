@@ -33,7 +33,7 @@ class CriticalSystemsThinking(Toolkit, SearchTools, AnalysisTools, TaskManagemen
         self.loop_threads = {}
         self.final_results = {}  # New attribute to store final results of completed tasks
         self.failed_tasks = []  # New attribute to store failed tasks
-        self.results_folder = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'debug_results')
+        self.results_folder = Path.home() / ".goose" / "results"
         os.makedirs(self.results_folder, exist_ok=True)
         self.log_file = Path.home() / ".goose" / "session_log.json"
         self.log_file.parent.mkdir(parents=True, exist_ok=True)

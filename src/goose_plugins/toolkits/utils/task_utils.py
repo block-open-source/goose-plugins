@@ -35,6 +35,8 @@ def write_intermediate_result(results_folder: str, task_id: str, iteration: int,
     return filepath
 
 def trigger_apple_dialog(title: str, message: str):
-    """Trigger an Apple dialog box."""
+    """Trigger an Apple dialog box without logging the result."""
+    import subprocess
     dialog_command = f'display dialog "{message}" buttons {{"OK"}} default button "OK" with title "{title}"'
-    os.system(f"osascript -e '{dialog_command}'")
+    subprocess.run(["osascript", "-e", dialog_command], capture_output=True, text=True)
+    # The result is captured but not used, effectively discarding it
