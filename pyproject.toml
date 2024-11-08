@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "ai-exchange>=0.8.4",
+    "duckdb>=1.1.3",
     "goose-ai>=0.9.8",
 ]
 author = [{ name = "Block", email = "ai-oss-tools@block.xyz" }]
@@ -19,6 +20,7 @@ goose-plugins = "goose_plugins:module_name"
 
 [project.entry-points."goose.toolkit"]
 artify = "goose_plugins.toolkits.artify:VincentVanCode"
+data = "goose_plugins.toolkits.data:Data"
 
 
 [build-system]

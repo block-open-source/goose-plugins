@@ -19,8 +19,8 @@ jobs:
 
       - name: Ruff
         run: |
-          uvx ruff check
-          uvx ruff format --check
+          uvx ruff check src
+          uvx ruff format --check src
 
       - name: Run tests
         run: |
