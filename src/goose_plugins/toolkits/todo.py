@@ -1,5 +1,6 @@
 from goose.toolkit.base import tool, Toolkit
 
+
 class TodoToolkit(Toolkit):
     """A simple to-do list toolkit for managing tasks."""
 
@@ -61,9 +62,7 @@ class TodoToolkit(Toolkit):
         """
         try:
             self.tasks[task_number - 1]["completed"] = True
-            self.notifier.log(
-                f"Marked task {task_number} as complete: '{self.tasks[task_number - 1]['description']}'"
-            )
+            self.notifier.log(f"Marked task {task_number} as complete: '{self.tasks[task_number - 1]['description']}'")
             return f"Marked task {task_number} as complete: '{self.tasks[task_number - 1]['description']}'"
         except IndexError:
             self.notifier.log("Invalid task number. Please try again.")
@@ -72,7 +71,7 @@ class TodoToolkit(Toolkit):
     @tool
     def list_completed_tasks(self) -> str:
         """List all completed tasks."""
-        completed_tasks = [task for task in self.tasks if task['completed']]
+        completed_tasks = [task for task in self.tasks if task["completed"]]
         if not completed_tasks:
             self.notifier.log("No completed tasks.")
             return "No completed tasks. Provide instructions for marking tasks as complete."
@@ -96,11 +95,9 @@ class TodoToolkit(Toolkit):
             IndexError: If the task number is invalid.
         """
         try:
-            old_description = self.tasks[task_number - 1]['description']
-            self.tasks[task_number - 1]['description'] = new_description
-            self.notifier.log(
-                f"Updated task {task_number} from '{old_description}' to '{new_description}'"
-            )
+            old_description = self.tasks[task_number - 1]["description"]
+            self.tasks[task_number - 1]["description"] = new_description
+            self.notifier.log(f"Updated task {task_number} from '{old_description}' to '{new_description}'")
             return f"Updated task {task_number} successfully."
         except IndexError:
             self.notifier.log("Invalid task number. Unable to update.")
