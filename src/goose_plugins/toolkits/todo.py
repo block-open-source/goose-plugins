@@ -105,5 +105,3 @@ class TodoToolkit(Toolkit):
         except IndexError:
             self.notifier.log("Invalid task number. Unable to update.")
             return "Invalid task number. Unable to update."
-
-            
