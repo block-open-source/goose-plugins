@@ -5,6 +5,10 @@ on:
     - cron: '0 * * * *'  # Runs every hour at the start of the hour
   workflow_dispatch:  # Allows manual triggering
 
+permissions:
+  issues: write
+  pull-requests: read
+
 jobs:
   update-leaderboard:
     runs-on: ubuntu-latest
@@ -15,17 +19,19 @@ jobs:
     - name: Update Leaderboard
       uses: actions/github-script@v6
       with:
-        github-token: ${{ secrets.LOOSEGOOSE_LEADERBOARD_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const owner = context.repo.owner;
           const repo = context.repo.repo;
-          const issueNumber = 46;
+          const issueNumber = 46;  // Change this to match your issue number
           const REPOS = [
-            'block-open-source/goose-plugins',
+            'block-open-source/goose-plugins',  // Update to your repo(s)
           ];
+
           const calculatePoints = (labels) => {
-            return 10; // Flat 10 points per accepted PR
+            return 10;
           };
+
           const fetchRecentPRs = async (repo) => {
             try {
               console.log(`Fetching recent PRs for ${repo}`);
@@ -41,7 +47,9 @@ jobs:
                 direction: 'desc',
                 per_page: 100
               });
+              
               console.log(`Fetched ${prs.length} PRs for ${repo}`);
+              
               const loosegoosePRs = prs.filter(pr => {
                 const isMerged = !!pr.merged_at;
                 const isRecent = new Date(pr.merged_at) > new Date(thirtyDaysAgo);
@@ -60,6 +68,7 @@ jobs:
               return [];
             }
           };
+
           const generateLeaderboard = async () => {
             try {
               const allPRs = await Promise.all(REPOS.map(fetchRecentPRs));
@@ -70,7 +79,8 @@ jobs:
                 acc[pr.user].prs += 1;
                 return acc;
               }, {});
-              const sortedLeaderboard = Object.entries(leaderboard)
+              
+              return Object.entries(leaderboard)
                 .sort(([, a], [, b]) => b.points - a.points)
                 .map(([username, data], index) => ({ 
                   rank: index + 1, 
@@ -78,46 +88,49 @@ jobs:
                   points: data.points, 
                   prs: data.prs 
                 }));
-              return sortedLeaderboard;
             } catch (error) {
               console.error(`Error generating leaderboard: ${error.message}`);
               return [];
             }
           };
+
           const updateIssue = async (leaderboardData) => {
-            const issueBody = `# 🏆 Loose Goose November 2024 Leaderboard 🏆
-          You thought Hacktoberfest 2024 was over?! The open source party is just getting started..! Wrap up 2024 with a bang (or honk) while enjoying super-fun contributions with Loose Goose November. From Nov 1st to Nov 20th, check our live leaderboard below to see who our top contributors are in real-time. Not only does this recognize everyone's efforts, it also brings an amplified competitive vibe with each contribution. 👀 
-
-          ## This event is open to both employees and external contributors! 🦢
-
-          ### 🌟 **Current Rankings:**
-          | Rank | Contributor | Points | PRs |
-          |------|-------------|--------|-----|
-          ${leaderboardData.map(entry => `| ${entry.rank} | @${entry.username} | ${entry.points} | ${entry.prs} |
-
-          ### 📜 How It Works:
-          The top 3 contributors with the most points will earn $$$ gift cards (more on rewards below). To earn your place in the leaderboard, you want to close the most PRs to earn the most points. As you complete a task by successfully merging a PR, you will automatically be granted 10 points per task completed.
-
-          ### 🎁 Rewards
-          - Among our **top 3**? Our Top 3 Superstars earn $150 gift cards on Amazon. Stay tuned for the winners!
-
-          ### FAQ
-          - **Frequency of Updates:** The leaderboard will be updated every 1 hour.
-          - **Criteria:** Rankings are based on how many points you earn and PRs you close in the goose-plugins repo. To ensure your PRs are successfully merged:
-           - Ensure your contributions are aligned with our [project's CoC](https://github.com/block-open-source/goose-plugins/blob/main/CODE_OF_CONDUCT.md).
-           - Refer to our [Contributing Guide](https://github.com/block-open-source/goose-plugins/blob/main/CONTRIBUTING.md).
-          - **Tie-Breaker:** In the event of a tie-breaker, the tie-breaking PR that was submitted soonest will break the tie.
-
-
-          ### 🚀 Get Featured:
-          Want to see your name climbing our ranks?
-          Explore our content issues with the labels `loosegoose` in our Loose Goose Project Hub: 
-          - [ ] #32 
-
-          Excited to see everyone's hard work. Thank you so much for your invaluable contributions, and let the fun competition begin! 
-          Last updated: ${new Date().toUTCString()}
-          `;
             try {
+              const rows = leaderboardData.map(entry => 
+                `| ${entry.rank} | @${entry.username} | ${entry.points} | ${entry.prs} |`
+              ).join('\n');
+
+              const issueBody = [
+                '# 🏆 Loose Goose November 2024 Leaderboard 🏆',
+                'You thought Hacktoberfest 2024 was over?! The open source party is just getting started..! Wrap up 2024 with a bang (or honk) while enjoying super-fun contributions with Loose Goose November. From Nov 1st to Nov 20th, check our live leaderboard below to see who our top contributors are in real-time. Not only does this recognize everyone\'s efforts, it also brings an amplified competitive vibe with each contribution. 👀',
+                '',
+                '## This event is open to both employees and external contributors! 🦢',
+                '### 🌟 **Current Rankings:**',
+                '| Rank | Contributor | Points | PRs |',
+                '|------|-------------|--------|-----|',
+                rows,
+                '',
+                '### 📜 How It Works:',
+                'The top 3 contributors with the most points will earn $$$ gift cards (more on rewards below). To earn your place in the leaderboard, you want to close the most PRs to earn the most points. As you complete a task by successfully merging a PR, you will automatically be granted 10 points per task completed.',
+                '',
+                '### 🎁 Rewards',
+                '- Among our **top 3**? Our Top 3 Superstars earn $150 gift cards on Amazon. Stay tuned for the winners!',
+                '',
+                '### FAQ',
+                '- **Frequency of Updates:** The leaderboard will be updated every 1 hour.',
+                '- **Criteria:** Rankings are based on how many points you earn and PRs you close in the goose-plugins repo. To ensure your PRs are successfully merged:',
+                '  - Ensure your contributions are aligned with our [project\'s CoC](https://github.com/block-open-source/goose-plugins/blob/main/CODE_OF_CONDUCT.md).',
+                '  - Refer to our [Contributing Guide](https://github.com/block-open-source/goose-plugins/blob/main/CONTRIBUTING.md).',
+                '- **Tie-Breaker:** In the event of a tie-breaker, the tie-breaking PR that was submitted soonest will break the tie.',
+                '',
+                '### 🚀 Get Featured:',
+                'Want to see your name climbing our ranks? Explore our content issues with the labels `loosegoose` in our Loose Goose Project Hub:',
+                '- [ ] #32',
+                '',
+                'Excited to see everyone\'s hard work. Thank you so much for your invaluable contributions, and let the fun competition begin!',
+                `Last updated: ${new Date().toUTCString()}`
+              ].join('\n');
+
               await github.rest.issues.update({
                 owner,
                 repo,
@@ -125,23 +138,47 @@ jobs:
                 body: issueBody
               });
               console.log("Issue updated successfully!");
-              console.log("Updated issue body:", issueBody);
             } catch (error) {
               throw new Error(`Failed to update issue: ${error.message}`);
             }
           };
+
           // Main execution
           const leaderboardData = await generateLeaderboard();
+          
           if (leaderboardData.length > 0) {
             await updateIssue(leaderboardData);
           } else {
             console.log("No leaderboard data to update.");
-            const emptyIssueBody = `
-          # 🏆 Loose Goose November 2024 Leaderboard 🏆
-          
-          No qualifying PRs found at this time. Check back soon!
-          Last updated: ${new Date().toUTCString()}
-          `;
+            const emptyIssueBody = [
+              '# 🏆 Loose Goose November 2024 Leaderboard 🏆',
+              'You thought Hacktoberfest 2024 was over?! The open source party is just getting started..! Wrap up 2024 with a bang (or honk) while enjoying super-fun contributions with Loose Goose November. From Nov 1st to Nov 20th, check our live leaderboard below to see who our top contributors are in real-time. Not only does this recognize everyone\'s efforts, it also brings an amplified competitive vibe with each contribution. 👀',
+              '',
+              '## This event is open to both employees and external contributors! 🦢',
+              '### 🌟 **Current Rankings:**',
+              'No qualifying PRs found at this time. Check back soon!',
+              '',
+              '### 📜 How It Works:',
+              'The top 3 contributors with the most points will earn $$$ gift cards (more on rewards below). To earn your place in the leaderboard, you want to close the most PRs to earn the most points. As you complete a task by successfully merging a PR, you will automatically be granted 10 points per task completed.',
+              '',
+              '### 🎁 Rewards',
+              '- Among our **top 3**? Our Top 3 Superstars earn $150 gift cards on Amazon. Stay tuned for the winners!',
+              '',
+              '### FAQ',
+              '- **Frequency of Updates:** The leaderboard will be updated every 1 hour.',
+              '- **Criteria:** Rankings are based on how many points you earn and PRs you close in the goose-plugins repo. To ensure your PRs are successfully merged:',
+              '  - Ensure your contributions are aligned with our [project\'s CoC](https://github.com/block-open-source/goose-plugins/blob/main/CODE_OF_CONDUCT.md).',
+              '  - Refer to our [Contributing Guide](https://github.com/block-open-source/goose-plugins/blob/main/CONTRIBUTING.md).',
+              '- **Tie-Breaker:** In the event of a tie-breaker, the tie-breaking PR that was submitted soonest will break the tie.',
+              '',
+              '### 🚀 Get Featured:',
+              'Want to see your name climbing our ranks? Explore our content issues with the labels `loosegoose` in our Loose Goose Project Hub:',
+              '- [ ] #32',
+              '',
+              'Excited to see everyone\'s hard work. Thank you so much for your invaluable contributions, and let the fun competition begin!',
+              `Last updated: ${new Date().toUTCString()}`
+            ].join('\n');
+
             await github.rest.issues.update({
               owner,
               repo,
