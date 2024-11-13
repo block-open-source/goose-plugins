@@ -62,6 +62,27 @@
       "title": "Using Goose as a GitHub Action",
       "link": "https://dev.to/lymah/using-goose-as-a-github-action-h4n",
       "contributor": "Lymah123"
-    }
+    },
+    {
+      "type": "video",
+      "thumbnail": "https://img.youtube.com/vi/tQtg7M5w_Ak/maxresdefault.jpg",
+      "title": "Building AI Agents Developers Can Trust",
+      "link": "https://www.youtube.com/watch?v=tQtg7M5w_Ak",
+      "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "blog",
+      "thumbnail": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F8q538r7pr0llro604ii8.png",
+      "title": "How My AI Dev Agent Turns Screenshots into UI Updates",
+      "link": "https://dev.to/blackgirlbytes/how-my-ai-dev-agent-turns-screenshots-into-ui-updates-189p",
+      "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "blog",
+      "thumbnail": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fn4ubdc6p8xin719by9ea.png",
+      "title": "How to Extend your AI Agent for Custom Developer Workflows",
+      "link": "https://dev.to/blackgirlbytes/how-to-extend-your-ai-agent-for-custom-developer-workflows-4fld",
+      "contributor": "Rizel Scarlett"
+    },
   ]
 }
