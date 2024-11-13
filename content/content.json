@@ -55,6 +55,13 @@
       "title": "Beyond LLMs: My Introductory Experience with AI Agents",
       "link": "https://dev.to/blackgirlbytes/beyond-llms-my-introductory-experience-with-ai-agents-1fjb",
       "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "blog",
+      "thumbnail": "./img/using goose as a github action.png",
+      "title": "Using Goose as a GitHub Action",
+      "link": "https://dev.to/lymah/using-goose-as-a-github-action-h4n",
+      "contributor": "Lymah123"
     }
   ]
 }
