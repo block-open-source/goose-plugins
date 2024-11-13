@@ -43,6 +43,13 @@
       "contributor": "Kiran Baliga"
     },
     {
+      "type": "social",
+      "thumbnail": "./img/goosegithubaction.png",
+      "title": "Using Goose as a Github Action",
+      "link": "https://x.com/kirantweets99/status/1856758489172869245",
+      "contributor": "Kiran Baliga"
+    },
+    {
       "type": "blog",
       "thumbnail": "https://dev-to-uploads.s3.amazonaws.com/uploads/articles/73stdcqp8ek29digbsj1.png",
       "title": "Beyond LLMs: My Introductory Experience with AI Agents",
