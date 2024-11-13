@@ -4,17 +4,19 @@
   <img src="docs/assets/goose_plugins_repository.png" alt="Goose Plugins Repository" width="500"/>
 </p>
 
-## 🎉 Hacktoberfest 2024 🎉
+## 🪿 Loose Goose November 2024 🪿
 
-`goose-plugins` is a participating project in Hacktoberfest 2024! We’re so excited for your contributions, and have created a wide variety of issues so that anyone can contribute. Whether you're a seasoned developer or a first-time open source contributor, there's something for everyone.
+`goose-plugins` is participating in Loose Goose November 2024! 🪿 We’re so excited for your contributions, and have created a wide variety of content issues so that anyone can contribute. Whether you're a seasoned developer or a first-time open source contributor, there's something for everyone. 
+
+### This event is open to both employees and external contributors! 🦢
 
 ### To get started:
 
 1. Read the [contributing guide](https://github.com/square/goose-plugins/blob/main/CONTRIBUTING.md).
 2. Read the [code of conduct](https://github.com/square/goose-plugins/blob/main/CODE_OF_CONDUCT.md).
-3. Choose a task from this project's Hacktoberfest issues in [here](https://github.com/square/goose-plugins/issues) and follow the instructions. Each issue has the 🏷️ `hacktoberfest` label.
+3. Choose a task from our Loose Goose Project Hub [here](https://github.com/block-open-source/goose-plugins/issues/32) and follow the instructions. Each issue has the 🏷️ `loosegoose` label.
 
-Have questions? Connecting with us in our [Discord community](https://discord.gg/DCAZKnGZFa) in the `#hacktoberfest` and `#goose-toolkits` project channel.
+Have questions? Connecting with us in our [Discord community](https://discord.gg/DCAZKnGZFa) in the `#loosegoose` and `#goose-toolkits` project channel.
 
 ---
 

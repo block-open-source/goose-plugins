@@ -19,6 +19,7 @@ goose-plugins = "goose_plugins:module_name"
 
 [project.entry-points."goose.toolkit"]
 artify = "goose_plugins.toolkits.artify:VincentVanCode"
+todo = "goose_plugins.toolkits.todo:TodoToolkit"
 
 
 [build-system]
