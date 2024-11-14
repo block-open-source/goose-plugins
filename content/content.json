@@ -50,6 +50,13 @@
       "contributor": "Kiran Baliga"
     },
     {
+      "type": "video",
+      "thumbnail": "./img/gooseonyoutube.png",
+      "title": "Boost your Dev workflow with Goose",
+      "link": "https://youtu.be/o33kIaUMwA8?si=A0K2qmNjibWMnVQh",
+      "contributor": "Kiran Baliga"
+    },
+    {
       "type": "blog",
       "thumbnail": "https://dev-to-uploads.s3.amazonaws.com/uploads/articles/73stdcqp8ek29digbsj1.png",
       "title": "Beyond LLMs: My Introductory Experience with AI Agents",
