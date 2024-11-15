@@ -90,6 +90,13 @@
       "title": "How to Extend your AI Agent for Custom Developer Workflows",
       "link": "https://dev.to/blackgirlbytes/how-to-extend-your-ai-agent-for-custom-developer-workflows-4fld",
       "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "short",
+      "thumbnail": "./img/using-goose-as-a-github-action.png",
+      "title": ""
+      "link": "Using Goose as a GitHub Action",
+      "contributor": "Lymah123"
     }
   ]
 }
