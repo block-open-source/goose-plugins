@@ -62,7 +62,9 @@ class TodoToolkit(Toolkit):
         """
         try:
             self.tasks[task_number - 1]["completed"] = True
-            self.notifier.log(f"Marked task {task_number} as complete: '{self.tasks[task_number - 1]['description']}'")
+            self.notifier.log(
+                f"Marked task {task_number} as complete: '{self.tasks[task_number - 1]['description']}'"
+            )
             return f"Marked task {task_number} as complete: '{self.tasks[task_number - 1]['description']}'"
         except IndexError:
             self.notifier.log("Invalid task number. Please try again.")
@@ -97,7 +99,9 @@ class TodoToolkit(Toolkit):
         try:
             old_description = self.tasks[task_number - 1]["description"]
             self.tasks[task_number - 1]["description"] = new_description
-            self.notifier.log(f"Updated task {task_number} from '{old_description}' to '{new_description}'")
+            self.notifier.log(
+                f"Updated task {task_number} from '{old_description}' to '{new_description}'"
+            )
             return f"Updated task {task_number} successfully."
         except IndexError:
             self.notifier.log("Invalid task number. Unable to update.")
