@@ -100,9 +100,9 @@
     },
     {
       "type": "short",
-      "thumbnail": "./img/using-goose-as-a-github-action.png",
-      "title": ""
-      "link": "Using Goose as a GitHub Action",
+      "thumbnail": "./img/Using Goose as a GitHub Action Shorts",
+      "title": "Using Goose as a GitHub Action Shorts",
+      "link": "https://www.youtube.com/watch?v=kQbhxZUOUxw",
       "contributor": "Lymah123"
     }
   ]
