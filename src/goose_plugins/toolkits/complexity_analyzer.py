@@ -159,6 +159,7 @@ class CodeComplexityToolkit(Toolkit):
         """
 
         try:
+
             mi_score = rm.mi_visit(code, multi=True)
             return mi_score
         except Exception as e:

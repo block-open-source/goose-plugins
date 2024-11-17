@@ -22,6 +22,7 @@ goose-plugins = "goose_plugins:module_name"
 artify = "goose_plugins.toolkits.artify:VincentVanCode"
 todo = "goose_plugins.toolkits.todo:TodoToolkit"
 complexity_analyzer = "goose_plugins.toolkits.complexity_analyzer:CodeComplexityToolkit"
+dockerize_my_app = "goose_plugins.toolkits.dockerize_my_app:DockerizationToolkit"
 
 
 [build-system]
