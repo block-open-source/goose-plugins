@@ -61,7 +61,6 @@ class CodeComplexityToolkit(Toolkit):
                     "cyclomatic_complexity"
                 ] += self.cyclomatic_complexity(code)
                 halstead_result = self.halstead_complexity(code)
-                print("halstead_result", halstead_result)
                 complexity_results["halstead_metrics"] += (
                     halstead_result["halstead_volume"] if halstead_result else 0
                 )
@@ -167,28 +166,9 @@ class CodeComplexityToolkit(Toolkit):
             self.notifier.log(f"Error calculating maintainability index: {str(e)}")
             return 0
 
-    @tool
-    def aggregate_results(self, results: dict) -> dict:
-        """Aggregate the complexity results from all analyzed files.
 
-        Args:
-            results (dict): A dictionary containing lists of complexity metrics across multiple files,
-                            including Cyclomatic Complexity, Halstead Metrics, and Maintainability Index.
+from unittest.mock import MagicMock
 
-        Returns:
-            dict: A dictionary containing the aggregated averages for each complexity metric.
-        """
-        try:
-            aggregated_results = {
-                "avg_cyclomatic_complexity": sum(results["cyclomatic_complexity"])
-                / len(results["cyclomatic_complexity"]),
-                "avg_halstead_complexity": sum(
-                    [h["halstead_volume"] for h in results["halstead_metrics"]]
-                )
-                / len(results["halstead_metrics"]),
-                "avg_maintainability_index": sum(results["maintainability_index"])
-                / len(results["maintainability_index"]),
-            }
-            return aggregated_results
-        except ZeroDivisionError:
-            return {"error": "No valid results to aggregate."}
+toolkit = CodeComplexityToolkit(notifier=MagicMock())
+result = toolkit.analyze_complexity("/Users/jevan/personal/algos")
+print("result", result)

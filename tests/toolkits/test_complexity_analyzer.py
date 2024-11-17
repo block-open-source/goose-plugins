@@ -83,20 +83,3 @@ def test_maintainability_index(toolkit):
         )
 
     assert isinstance(result, float) or isinstance(result, int)
-
-
-def test_aggregate_results(toolkit):
-    results = {
-        "cyclomatic_complexity": [5, 10],
-        "halstead_metrics": [{"halstead_volume": 100}, {"halstead_volume": 200}],
-        "maintainability_index": [70, 60],
-    }
-
-    aggregated = toolkit.aggregate_results(results)
-
-    assert "avg_cyclomatic_complexity" in aggregated
-    assert "avg_halstead_complexity" in aggregated
-    assert "avg_maintainability_index" in aggregated
-    assert aggregated["avg_cyclomatic_complexity"] == 7.5
-    assert aggregated["avg_halstead_complexity"] == 150
-    assert aggregated["avg_maintainability_index"] == 65
