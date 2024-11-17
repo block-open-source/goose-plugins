@@ -61,6 +61,7 @@ class CodeComplexityToolkit(Toolkit):
                     "cyclomatic_complexity"
                 ] += self.cyclomatic_complexity(code)
                 halstead_result = self.halstead_complexity(code)
+                print("halstead_result", halstead_result)
                 complexity_results["halstead_metrics"] += (
                     halstead_result["halstead_volume"] if halstead_result else 0
                 )
@@ -97,9 +98,22 @@ class CodeComplexityToolkit(Toolkit):
             int: The Cyclomatic Complexity of the code.
         """
         try:
-            complexity = rc.cc_visit(ast.parse(code))
-            return complexity
+            complexity_list = rc.cc_visit(ast.parse(code))
+            total_complexity = 0
+
+            # Iterate over each item in the complexity list
+            for item in complexity_list:
+                if hasattr(item, "complexity"):
+                    # Add complexity of the function or class's top-level complexity
+                    total_complexity += item.complexity
+
+                # For classes, add complexity of methods if any
+                if hasattr(item, "methods"):
+                    for method in item.methods:
+                        total_complexity += method.complexity
+            return total_complexity
         except Exception as e:
+            print(e)
             self.notifier.log(f"Error calculating cyclomatic complexity: {str(e)}")
             return 0
 
@@ -111,11 +125,26 @@ class CodeComplexityToolkit(Toolkit):
             code (str): The Python code as a string to analyze.
 
         Returns:
-            dict: A dictionary of Halstead metrics (e.g., volume, difficulty, effort).
+            dict: A dictionary containing the Halstead metrics, including 'halstead_volume'.
         """
+        from radon.metrics import h_visit
+
         try:
-            return rm.halstead_metrics(code)
+            halstead_report = h_visit(code)
+            return {
+                "halstead_volume": halstead_report.total.volume,
+                "details": {
+                    "vocabulary": halstead_report.total.vocabulary,
+                    "length": halstead_report.total.length,
+                    "calculated_length": halstead_report.total.calculated_length,
+                    "difficulty": halstead_report.total.difficulty,
+                    "effort": halstead_report.total.effort,
+                    "time": halstead_report.total.time,
+                    "bugs": halstead_report.total.bugs,
+                },
+            }
         except Exception as e:
+            print(e)
             self.notifier.log(f"Error calculating Halstead complexity: {str(e)}")
             return {}
 
@@ -129,9 +158,12 @@ class CodeComplexityToolkit(Toolkit):
         Returns:
             int: The Maintainability Index of the code.
         """
+
         try:
-            return rm.maintainability_index(code)
+            mi_score = rm.mi_visit(code, multi=True)
+            return mi_score
         except Exception as e:
+            print(e)
             self.notifier.log(f"Error calculating maintainability index: {str(e)}")
             return 0
 

@@ -54,7 +54,7 @@ def test_cyclomatic_complexity(toolkit):
             f"Error calculating cyclomatic complexity: {str(e)}"
         )
 
-    assert result[0].complexity == 2
+    assert result == 2
 
 
 def test_halstead_complexity(toolkit):
@@ -82,7 +82,7 @@ def test_maintainability_index(toolkit):
             f"Error calculating maintainability index: {str(e)}"
         )
 
-    assert isinstance(result, int)
+    assert isinstance(result, float) or isinstance(result, int)
 
 
 def test_aggregate_results(toolkit):
