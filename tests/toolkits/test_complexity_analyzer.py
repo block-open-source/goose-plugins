@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from goose_plugins.toolkits.code_complexity import CodeComplexityToolkit
+from goose_plugins.toolkits.complexity_analyzer import CodeComplexityToolkit
 
 
 @pytest.fixture
@@ -54,7 +54,6 @@ def test_cyclomatic_complexity(toolkit):
             f"Error calculating cyclomatic complexity: {str(e)}"
         )
 
-    # Adjust the expected result based on the actual output
     assert result[0].complexity == 2
 
 
@@ -69,8 +68,7 @@ def test_halstead_complexity(toolkit):
             f"Error calculating Halstead complexity: {str(e)}"
         )
 
-    # In case no error occurred, verify expected result
-    assert isinstance(result, dict)  # Should return a dictionary
+    assert isinstance(result, dict)
 
 
 def test_maintainability_index(toolkit):
@@ -84,8 +82,7 @@ def test_maintainability_index(toolkit):
             f"Error calculating maintainability index: {str(e)}"
         )
 
-    # In case no error occurred, verify expected result
-    assert isinstance(result, int)  # Should return an integer
+    assert isinstance(result, int)
 
 
 def test_aggregate_results(toolkit):

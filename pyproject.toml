@@ -21,7 +21,7 @@ goose-plugins = "goose_plugins:module_name"
 [project.entry-points."goose.toolkit"]
 artify = "goose_plugins.toolkits.artify:VincentVanCode"
 todo = "goose_plugins.toolkits.todo:TodoToolkit"
-code_complexity = "goose_plugins.toolkits.code_complexity:CodeComplexityToolkit"
+complexity_analyzer = "goose_plugins.toolkits.complexity_analyzer:CodeComplexityToolkit"
 
 
 [build-system]
