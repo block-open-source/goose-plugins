@@ -79,7 +79,7 @@
     },
     {
       "type": "blog",
-      "thumbnail": "./img/using goose as a github action.png",
+      "thumbnail": "./img/using-goose-as-a-github-action.png",
       "title": "Using Goose as a GitHub Action",
       "link": "https://dev.to/lymah/using-goose-as-a-github-action-h4n",
       "contributor": "Lymah123"
