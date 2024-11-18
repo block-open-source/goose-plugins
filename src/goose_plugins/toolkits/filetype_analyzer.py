@@ -6,7 +6,7 @@ from goose.toolkit.base import Toolkit, tool
 class FileTypeAnalyzerToolkit(Toolkit):
     """Analyzes the percentage distribution of file types in a project."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: object, **kwargs: object) -> None:
         super().__init__(*args, **kwargs)
 
     @tool
@@ -55,7 +55,7 @@ class FileTypeAnalyzerToolkit(Toolkit):
 class FileTypeAnalyzer:
     """Performs file type analysis with explicit path exclusions."""
 
-    def analyze(self, directory, recursive=True, exclude_paths=None):
+    def analyze(self, directory, recursive=True, exclude_paths=None) -> dict:
         """
         Analyze file types in a directory.
 
@@ -109,7 +109,7 @@ class FileTypeAnalyzer:
 class ReportGenerator:
     """Generates analysis reports."""
 
-    def generate_report(self, data, format, output_file):
+    def generate_report(self, data: dict, format: str, output_file: str) -> None:
         if format == "json":
             with open(output_file, "w") as f:
                 json.dump(data, f, indent=4)
@@ -122,7 +122,7 @@ class ReportGenerator:
 class Visualizer:
     """Creates visual CLI representations for file type analysis."""
 
-    def display_bar_chart(self, data: dict):
+    def display_bar_chart(self, data: dict) -> None:
         """
         Display a bar chart showing the percentage of file types.
 
@@ -134,9 +134,9 @@ class Visualizer:
             bar = "█" * int(percent / 2)
             print(f"{ext or 'Other':<10}: {bar} {percent:.2f}%")
 
-    def display_pie_chart(self, data: dict):
+    def display_pie_chart(self, data: dict) -> None:
         """
-        Display a pie chart-like visualization for file type percentages.d
+        Display a pie chart-like visualization for file type percentages.
 
         Args:
             data (dict): Analysis results containing percentages of file types.
@@ -147,7 +147,7 @@ class Visualizer:
             segment = "○" * int((percent / total) * 20)
             print(f"{ext or 'Other':<10}: {segment} {percent:.2f}%")
 
-    def display_summary(self, data: dict):
+    def display_summary(self, data: dict) -> None:
         """
         Display a summary of the analysis.
 
