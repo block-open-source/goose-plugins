@@ -22,10 +22,7 @@ class CodeComplexityToolkit(Toolkit):
             list: A list of paths to all Python files in the directory.
         """
         return [
-            os.path.join(root, file)
-            for root, _, files in os.walk(directory)
-            for file in files
-            if file.endswith(".py")
+            os.path.join(root, file) for root, _, files in os.walk(directory) for file in files if file.endswith(".py")
         ]
 
     @tool
@@ -57,16 +54,10 @@ class CodeComplexityToolkit(Toolkit):
                     code = f.read()
 
                 # Process each complexity metric and update the results
-                complexity_results[
-                    "cyclomatic_complexity"
-                ] += self.cyclomatic_complexity(code)
+                complexity_results["cyclomatic_complexity"] += self.cyclomatic_complexity(code)
                 halstead_result = self.halstead_complexity(code)
-                complexity_results["halstead_metrics"] += (
-                    halstead_result["halstead_volume"] if halstead_result else 0
-                )
-                complexity_results[
-                    "maintainability_index"
-                ] += self.maintainability_index(code)
+                complexity_results["halstead_metrics"] += halstead_result["halstead_volume"] if halstead_result else 0
+                complexity_results["maintainability_index"] += self.maintainability_index(code)
                 complexity_results["file_count"] += 1
 
             except Exception as e:
@@ -78,8 +69,7 @@ class CodeComplexityToolkit(Toolkit):
             return {
                 "avg_cyclomatic_complexity": complexity_results["cyclomatic_complexity"]
                 / complexity_results["file_count"],
-                "avg_halstead_complexity": complexity_results["halstead_metrics"]
-                / complexity_results["file_count"],
+                "avg_halstead_complexity": complexity_results["halstead_metrics"] / complexity_results["file_count"],
                 "avg_maintainability_index": complexity_results["maintainability_index"]
                 / complexity_results["file_count"],
             }
