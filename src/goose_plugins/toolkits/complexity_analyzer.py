@@ -1,8 +1,8 @@
 import os
 import ast
 from goose.toolkit.base import Toolkit, tool
-import radon.complexity as rc
-import radon.metrics as rm
+from radon.complexity import cc_visit
+from radon.metrics import h_visit, mi_visit
 
 
 class CodeComplexityToolkit(Toolkit):
@@ -22,10 +22,7 @@ class CodeComplexityToolkit(Toolkit):
             list: A list of paths to all Python files in the directory.
         """
         return [
-            os.path.join(root, file)
-            for root, _, files in os.walk(directory)
-            for file in files
-            if file.endswith(".py")
+            os.path.join(root, file) for root, _, files in os.walk(directory) for file in files if file.endswith(".py")
         ]
 
     @tool
@@ -57,16 +54,10 @@ class CodeComplexityToolkit(Toolkit):
                     code = f.read()
 
                 # Process each complexity metric and update the results
-                complexity_results[
-                    "cyclomatic_complexity"
-                ] += self.cyclomatic_complexity(code)
+                complexity_results["cyclomatic_complexity"] += self.cyclomatic_complexity(code)
                 halstead_result = self.halstead_complexity(code)
-                complexity_results["halstead_metrics"] += (
-                    halstead_result["halstead_volume"] if halstead_result else 0
-                )
-                complexity_results[
-                    "maintainability_index"
-                ] += self.maintainability_index(code)
+                complexity_results["halstead_metrics"] += halstead_result["halstead_volume"] if halstead_result else 0
+                complexity_results["maintainability_index"] += self.maintainability_index(code)
                 complexity_results["file_count"] += 1
 
             except Exception as e:
@@ -78,8 +69,7 @@ class CodeComplexityToolkit(Toolkit):
             return {
                 "avg_cyclomatic_complexity": complexity_results["cyclomatic_complexity"]
                 / complexity_results["file_count"],
-                "avg_halstead_complexity": complexity_results["halstead_metrics"]
-                / complexity_results["file_count"],
+                "avg_halstead_complexity": complexity_results["halstead_metrics"] / complexity_results["file_count"],
                 "avg_maintainability_index": complexity_results["maintainability_index"]
                 / complexity_results["file_count"],
             }
@@ -97,7 +87,7 @@ class CodeComplexityToolkit(Toolkit):
             int: The Cyclomatic Complexity of the code.
         """
         try:
-            complexity_list = rc.cc_visit(ast.parse(code))
+            complexity_list = cc_visit(ast.parse(code))
             total_complexity = 0
 
             # Iterate over each item in the complexity list
@@ -126,7 +116,6 @@ class CodeComplexityToolkit(Toolkit):
         Returns:
             dict: A dictionary containing the Halstead metrics, including 'halstead_volume'.
         """
-        from radon.metrics import h_visit
 
         try:
             halstead_report = h_visit(code)
@@ -159,7 +148,7 @@ class CodeComplexityToolkit(Toolkit):
         """
 
         try:
-            mi_score = rm.mi_visit(code, multi=True)
+            mi_score = mi_visit(code, multi=True)
             return mi_score
         except Exception as e:
             print(e)
