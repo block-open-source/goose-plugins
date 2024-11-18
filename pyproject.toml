@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "ai-exchange>=0.8.4",
-    "goose-ai>=0.9.8"
+    "goose-ai>=0.9.8",
 ]
 author = [{ name = "Block", email = "ai-oss-tools@block.xyz" }]
 packages = [{ include = "goose_plugins", from = "src" }]
@@ -20,7 +20,7 @@ goose-plugins = "goose_plugins:module_name"
 [project.entry-points."goose.toolkit"]
 artify = "goose_plugins.toolkits.artify:VincentVanCode"
 todo = "goose_plugins.toolkits.todo:TodoToolkit"
-dockerize_my_app = "goose_plugins.toolkits.dockerize_my_app:DockerizationToolkit"
+filetype_analyzer = "goose_plugins.toolkits.filetype_analyzer:FileTypeAnalyzerToolkit"
 
 
 [build-system]
