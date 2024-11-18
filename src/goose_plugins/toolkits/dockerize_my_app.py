@@ -29,7 +29,7 @@ class DockerizationToolkit(Toolkit):
 
 
 class Dockerizer:
-    def detect_project_type(self, project_dir):
+    def detect_project_type(self, project_dir: str) -> str:
         """Detect the project type based on common configuration files."""
         if os.path.exists(os.path.join(project_dir, "package.json")):
             return "nodejs"
@@ -40,7 +40,7 @@ class Dockerizer:
         else:
             raise ValueError("Unsupported project type or no recognizable files found.")
 
-    def generate(self, project_dir, output_dir=None):
+    def generate(self, project_dir: str, output_dir: str | None = None) -> dict:
         """Generate Docker-related files."""
         project_type = self.detect_project_type(project_dir)
         output_dir = output_dir or project_dir
@@ -56,7 +56,7 @@ class Dockerizer:
 
         return {"project_type": project_type, "output_dir": output_dir}
 
-    def _generate_python_files(self, output_dir):
+    def _generate_python_files(self, output_dir: str) -> None:
         dockerfile_content = """\
 FROM python:3.10-slim
 WORKDIR /app
@@ -75,7 +75,7 @@ __pycache__/
         """
         self._write_file(output_dir, ".dockerignore", dockerignore_content)
 
-    def _generate_nodejs_files(self, output_dir):
+    def _generate_nodejs_files(self, output_dir: str) -> None:
         dockerfile_content = """\
 FROM node:18-alpine
 WORKDIR /app
@@ -93,7 +93,7 @@ npm-debug.log
         """
         self._write_file(output_dir, ".dockerignore", dockerignore_content)
 
-    def _generate_java_files(self, output_dir):
+    def _generate_java_files(self, output_dir: str) -> None:
         dockerfile_content = """\
 FROM openjdk:17-slim
 WORKDIR /app
@@ -109,6 +109,6 @@ target/
         """
         self._write_file(output_dir, ".dockerignore", dockerignore_content)
 
-    def _write_file(self, directory, filename, content):
+    def _write_file(self, directory: str, filename: str, content: str) -> None:
         with open(os.path.join(directory, filename), "w") as f:
             f.write(content)
