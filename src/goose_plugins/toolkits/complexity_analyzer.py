@@ -165,10 +165,3 @@ class CodeComplexityToolkit(Toolkit):
             print(e)
             self.notifier.log(f"Error calculating maintainability index: {str(e)}")
             return 0
-
-
-from unittest.mock import MagicMock
-
-toolkit = CodeComplexityToolkit(notifier=MagicMock())
-result = toolkit.analyze_complexity("/Users/jevan/personal/algos")
-print("result", result)
