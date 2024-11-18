@@ -55,7 +55,12 @@ class FileTypeAnalyzerToolkit(Toolkit):
 class FileTypeAnalyzer:
     """Performs file type analysis with explicit path exclusions."""
 
-    def analyze(self, directory, recursive=True, exclude_paths=None) -> dict:
+    def analyze(
+        self,
+        directory: str,
+        recursive: bool = True,
+        exclude_paths: list[str] | None = None,
+    ) -> dict:
         """
         Analyze file types in a directory.
 
