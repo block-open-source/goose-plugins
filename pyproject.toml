@@ -7,7 +7,6 @@ requires-python = ">=3.10"
 dependencies = [
     "ai-exchange>=0.8.4",
     "goose-ai>=0.9.8",
-    "radon>=6.0.1",
 ]
 author = [{ name = "Block", email = "ai-oss-tools@block.xyz" }]
 packages = [{ include = "goose_plugins", from = "src" }]
