@@ -107,14 +107,21 @@
     },
     {
       "type": "short",
-      "thumbnail": "./img/Using Goose as a GitHub Action Shorts",
+      "thumbnail": "./img/use-goose-as-github-action-shorts.png",
       "title": "Using Goose as a GitHub Action Shorts",
       "link": "https://www.youtube.com/watch?v=kQbhxZUOUxw",
       "contributor": "Lymah123"
     },
     {
+      "type": "short",
+      "thumbnail": "./img/using-goose-as-a-github action-reel.png",
+      "title": "Using Goose as a GitHub Action Reel",
+      "link": "https://www.instagram.com/lymahcodes/reel/DCU7jpUATOJ/",
+      "contributor": "Lymah123"
+    },
+    {
       "type": "blog",
-      "thumbnail": "./img/How to Set Up Goose on Windows",
+      "thumbnail": "./img/how-to-set-up-goose-on-windows.png",
       "title": "How to Set Up Goose on Windows",
       "link": "https://dev.to/lymah/how-to-set-up-goose-on-windows-29dd",
       "contributor": "Lymah123"
