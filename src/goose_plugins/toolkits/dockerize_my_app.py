@@ -6,7 +6,7 @@ class DockerizationToolkit(Toolkit):
     """Dockerizes an application based
     on its project type (Node.js, Python, Java)."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: tuple, **kwargs: dict) -> None:
         super().__init__(*args, **kwargs)
 
     @tool
