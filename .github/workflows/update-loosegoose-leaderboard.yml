@@ -29,7 +29,15 @@ jobs:
           ];
 
           const calculatePoints = (labels) => {
-            return 10;
+            const labelNames = labels.map(label => label.name.toLowerCase());
+            const hasLooseGoose = labelNames.includes('loosegoose');
+            const hasCode = labelNames.includes('code');
+            
+            return {
+              points: hasLooseGoose && hasCode ? 15 : (hasLooseGoose ? 10 : 0),
+              isCodePR: hasCode,
+              isContentPR: hasLooseGoose && !hasCode
+            };
           };
 
           const fetchRecentPRs = async (repo) => {
@@ -55,13 +63,18 @@ jobs:
                 const isRecent = new Date(pr.merged_at) > new Date(thirtyDaysAgo);
                 const isLoosegoose = pr.labels.some(label => label.name.toLowerCase() === 'loosegoose');
                 return isMerged && isRecent && isLoosegoose;
-              }).map(pr => ({
-                user: pr.user.login,
-                points: calculatePoints(pr.labels),
-                repo: repo,
-                prNumber: pr.number,
-                prTitle: pr.title,
-              }));
+              }).map(pr => {
+                const pointsData = calculatePoints(pr.labels);
+                return {
+                  user: pr.user.login,
+                  points: pointsData.points,
+                  isCodePR: pointsData.isCodePR,
+                  isContentPR: pointsData.isContentPR,
+                  repo: repo,
+                  prNumber: pr.number,
+                  prTitle: pr.title,
+                };
+              });
               return loosegoosePRs;
             } catch (error) {
               console.error(`Error fetching PRs for ${repo}: ${error.message}`);
@@ -74,9 +87,22 @@ jobs:
               const allPRs = await Promise.all(REPOS.map(fetchRecentPRs));
               const flatPRs = allPRs.flat();
               const leaderboard = flatPRs.reduce((acc, pr) => {
-                if (!acc[pr.user]) acc[pr.user] = { points: 0, prs: 0 };
+                if (!acc[pr.user]) {
+                  acc[pr.user] = { 
+                    points: 0, 
+                    prs: 0,
+                    codePRs: 0,
+                    contentPRs: 0
+                  };
+                }
                 acc[pr.user].points += pr.points;
                 acc[pr.user].prs += 1;
+                if (pr.isCodePR) {
+                  acc[pr.user].codePRs += 1;
+                }
+                if (pr.isContentPR) {
+                  acc[pr.user].contentPRs += 1;
+                }
                 return acc;
               }, {});
               
@@ -86,7 +112,9 @@ jobs:
                   rank: index + 1, 
                   username, 
                   points: data.points, 
-                  prs: data.prs 
+                  prs: data.prs,
+                  codePRs: data.codePRs,
+                  contentPRs: data.contentPRs
                 }));
             } catch (error) {
               console.error(`Error generating leaderboard: ${error.message}`);
@@ -97,7 +125,7 @@ jobs:
           const updateIssue = async (leaderboardData) => {
             try {
               const rows = leaderboardData.map(entry => 
-                `| ${entry.rank} | @${entry.username} | ${entry.points} | ${entry.prs} |`
+                `| ${entry.rank} | @${entry.username} | ${entry.points} | ${entry.prs} | ${entry.codePRs} | ${entry.contentPRs} |`
               ).join('\n');
 
               const issueBody = [
@@ -106,18 +134,23 @@ jobs:
                 '',
                 '## This event is open to both employees and external contributors! 🦢',
                 '### 🌟 **Current Rankings:**',
-                '| Rank | Contributor | Points | PRs |',
-                '|------|-------------|--------|-----|',
+                '| Rank | Contributor | Points | Total PRs | Code PRs | Content PRs |',
+                '|------|-------------|--------|-----------|-----------|-------------|',
                 rows,
                 '',
                 '### 📜 How It Works:',
-                'The top 3 contributors with the most points will earn $$$ gift cards (more on rewards below). To earn your place in the leaderboard, you want to close the most PRs to earn the most points. As you complete a task by successfully merging a PR, you will automatically be granted 10 points per task completed.',
+                'The top 3 contributors with the most points will earn $$$ gift cards (more on rewards below). Points are awarded based on the following criteria:',
+                '- 15 points for each merged PR with both `loosegoose` and `code` labels',
+                '- 10 points for each merged PR with just the `loosegoose` label (Content PR)',
                 '',
                 '### 🎁 Rewards',
                 '- Among our **top 3**? Our Top 3 Superstars earn $150 gift cards on Amazon. Stay tuned for the winners!',
                 '',
                 '### FAQ',
                 '- **Frequency of Updates:** The leaderboard will be updated every 1 hour.',
+                '- **Points System:**',
+                '  - 15 points: Code PRs (PRs with both `loosegoose` and `code` labels)',
+                '  - 10 points: Content PRs (PRs with just the `loosegoose` label)',
                 '- **Criteria:** Rankings are based on how many points you earn and PRs you close in the goose-plugins repo. To ensure your PRs are successfully merged:',
                 '  - Ensure your contributions are aligned with our [project\'s CoC](https://github.com/block-open-source/goose-plugins/blob/main/CODE_OF_CONDUCT.md).',
                 '  - Refer to our [Contributing Guide](https://github.com/block-open-source/goose-plugins/blob/main/CONTRIBUTING.md).',
@@ -156,16 +189,23 @@ jobs:
               '',
               '## This event is open to both employees and external contributors! 🦢',
               '### 🌟 **Current Rankings:**',
+              '| Rank | Contributor | Points | Total PRs | Code PRs | Content PRs |',
+              '|------|-------------|--------|-----------|-----------|-------------|',
               'No qualifying PRs found at this time. Check back soon!',
               '',
               '### 📜 How It Works:',
-              'The top 3 contributors with the most points will earn $$$ gift cards (more on rewards below). To earn your place in the leaderboard, you want to close the most PRs to earn the most points. As you complete a task by successfully merging a PR, you will automatically be granted 10 points per task completed.',
+              'The top 3 contributors with the most points will earn $$$ gift cards (more on rewards below). Points are awarded based on the following criteria:',
+              '- 15 points for each merged PR with both `loosegoose` and `code` labels (Code PR)',
+              '- 10 points for each merged PR with just the `loosegoose` label (Content PR)',
               '',
               '### 🎁 Rewards',
               '- Among our **top 3**? Our Top 3 Superstars earn $150 gift cards on Amazon. Stay tuned for the winners!',
               '',
               '### FAQ',
               '- **Frequency of Updates:** The leaderboard will be updated every 1 hour.',
+              '- **Points System:**',
+              '  - 15 points: Code PRs (PRs with both `loosegoose` and `code` labels)',
+              '  - 10 points: Content PRs (PRs with just the `loosegoose` label)',
               '- **Criteria:** Rankings are based on how many points you earn and PRs you close in the goose-plugins repo. To ensure your PRs are successfully merged:',
               '  - Ensure your contributions are aligned with our [project\'s CoC](https://github.com/block-open-source/goose-plugins/blob/main/CODE_OF_CONDUCT.md).',
               '  - Refer to our [Contributing Guide](https://github.com/block-open-source/goose-plugins/blob/main/CONTRIBUTING.md).',
