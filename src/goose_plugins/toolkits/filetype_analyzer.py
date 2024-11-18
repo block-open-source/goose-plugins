@@ -35,9 +35,7 @@ class FileTypeAnalyzerToolkit(Toolkit):
         """
         try:
             analyzer = FileTypeAnalyzer()
-            result = analyzer.analyze(
-                project_dir, include_subdirectories, exclude_paths
-            )
+            result = analyzer.analyze(project_dir, include_subdirectories, exclude_paths)
 
             if output_file:
                 reporter = ReportGenerator()
@@ -76,10 +74,7 @@ class FileTypeAnalyzer:
         file_counts = {}
         total_files = 0
 
-        exclude_paths = [
-            os.path.abspath(os.path.join(directory, path))
-            for path in (exclude_paths or [])
-        ]
+        exclude_paths = [os.path.abspath(os.path.join(directory, path)) for path in (exclude_paths or [])]
 
         for root, _, files in os.walk(directory):
             # Skip excluded directories and their subdirectories
@@ -102,9 +97,7 @@ class FileTypeAnalyzer:
                 break
 
         # Calculate percentages
-        percentages = {
-            ext: (count / total_files) * 100 for ext, count in file_counts.items()
-        }
+        percentages = {ext: (count / total_files) * 100 for ext, count in file_counts.items()}
 
         return {
             "file_counts": file_counts,
