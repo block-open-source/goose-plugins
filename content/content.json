@@ -120,6 +120,13 @@
       "contributor": "Lymah123"
     },
     {
+      "type": "social",
+      "thumbnail": "./img/goosehint.png",
+      "title": "Using Goose with .goosehints file",
+      "link": "https://x.com/kirantweets99/status/1858874540723691824",
+      "contributor": "Kiran Baliga"
+    },
+    {
       "type": "blog",
       "thumbnail": "./img/how-to-set-up-goose-on-windows.png",
       "title": "How to Set Up Goose on Windows",
@@ -131,6 +138,11 @@
       "thumbnail": "./img/Short About Using .goosehints Files with Goose.png",
       "title": "Short About Using .goosehints Files with Goose",
       "link": "https://www.instagram.com/reel/DCjrntHgurY/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+
+      "type": "blog",
+      "thumbnail": "./img/using-goosehints-blog-post.png",
+      "title": "Using .goosehints Files with Goose",
+      "link": "https://dev.to/lymah/using-goosehints-files-with-goose-304m",
       "contributor": "Lymah123"
     }
   ]
