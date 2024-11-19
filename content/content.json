@@ -158,6 +158,13 @@
       "title": "Using the Screen Tool kit with goose",
       "link": "https://dev.to/iabdulkarim472/using-the-screen-tool-kit-with-goose-3916",
       "contributor": "Ibrahim Abdulkarim"
+    },
+    {
+      "type": "blog",
+      "thumbnail": "./img/using-goosehints-blog-post.png",
+      "title": "Using Goose with OpenAI",
+      "link": "https://dev.to/iabdulkarim472/using-goose-with-openai-8bf",
+      "contributor": "Ibrahim Abdulkarim"
     }
   ]
 }
