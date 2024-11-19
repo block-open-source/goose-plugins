@@ -127,6 +127,13 @@
       "contributor": "Kiran Baliga"
     },
     {
+      "type": "social",
+      "thumbnail": "./img/gooseplanmd.png",
+      "title": "Social post about custom plans with plan.md in Goose",
+      "link": "https://x.com/kirantweets99/status/1858916381992825313",
+      "contributor": "Kiran Baliga"
+    },
+    {
       "type": "blog",
       "thumbnail": "./img/how-to-set-up-goose-on-windows.png",
       "title": "How to Set Up Goose on Windows",
