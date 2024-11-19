@@ -14,6 +14,15 @@
       "link": "https://www.youtube.com/watch?v=Z4jF4SrbY2c",
       "contributor": "Rizel Scarlett"
     },
+
+    {
+      "type": "blog",
+      "thumbnail": "./img/G_nabhel.png",
+      "title": "How to Create Custom Plans with “plan.md” in Goose",
+      "link": "https://dev.to/nabhel/how-to-create-custom-plans-with-planmd-in-goose-25lk",
+      "contributor": "Nabhel Harmony"
+  },
+
     {
       "type": "video",
       "thumbnail": "https://img.youtube.com/vi/lppDgrHY88Y/maxresdefault.jpg",
