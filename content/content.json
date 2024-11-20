@@ -14,7 +14,20 @@
       "link": "https://www.youtube.com/watch?v=Z4jF4SrbY2c",
       "contributor": "Rizel Scarlett"
     },
-
+    {
+      "type": "video",
+      "thumbnail": "https://img.youtube.com/vi/nrtHfMG0udo/maxresdefault.jpg",
+      "title": "What's New With Goose 1.0",
+      "link": "https://www.youtube.com/watch?v=nrtHfMG0udo",
+      "contributor": "Rizel Scarlett"
+    },
+    {
+      "type": "video",
+      "thumbnail": "https://img.youtube.com/vi/uLSlupt9Kro/maxresdefault.jpg",
+      "title": "Reducing AI Hallucinations",
+      "link": "https://www.youtube.com/watch?v=uLSlupt9Kro",
+      "contributor": "Rizel Scarlett"
+    },
     {
       "type": "blog",
       "thumbnail": "./img/G_nabhel.png",
