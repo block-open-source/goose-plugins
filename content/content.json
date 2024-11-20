@@ -183,6 +183,13 @@
       "title": "Using Goose with OpenAI",
       "link": "https://dev.to/iabdulkarim472/using-goose-with-openai-8bf",
       "contributor": "Ibrahim Abdulkarim"
+    },
+    {
+      "type": "blog",
+      "thumbnail": "./img/goose_flutter.png",
+      "title": "Boosting Your Flutter Projects: How Goose Can Help",
+      "link": "https://marstech.hashnode.dev/boosting-your-flutter-projects-how-goose-can-help",
+      "contributor": "Mohit Raj Sinha"
     }
   ]
 }
