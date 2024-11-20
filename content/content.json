@@ -14,6 +14,15 @@
       "link": "https://www.youtube.com/watch?v=Z4jF4SrbY2c",
       "contributor": "Rizel Scarlett"
     },
+
+    {
+      "type": "blog",
+      "thumbnail": "./img/G_nabhel.png",
+      "title": "How to Create Custom Plans with “plan.md” in Goose",
+      "link": "https://dev.to/nabhel/how-to-create-custom-plans-with-planmd-in-goose-25lk",
+      "contributor": "Nabhel Harmony"
+  },
+
     {
       "type": "video",
       "thumbnail": "https://img.youtube.com/vi/lppDgrHY88Y/maxresdefault.jpg",
@@ -142,10 +151,12 @@
     },
     {
       "type": "short",
-      "thumbnail": "./img/Short About Using .goosehints Files with Goose.png",
+      "thumbnail": "./img/short-about-goosehints-file.png",
       "title": "Short About Using .goosehints Files with Goose",
       "link": "https://www.instagram.com/reel/DCjrntHgurY/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-
+      "contributor": "Lymah123"
+    },
+    {
       "type": "blog",
       "thumbnail": "./img/using-goosehints-blog-post.png",
       "title": "Using .goosehints Files with Goose",
@@ -154,14 +165,21 @@
     },
     {
       "type": "blog",
-      "thumbnail": "./img/using-goosehints-blog-post.png",
+      "thumbnail": "./img/using-screentoolkit-with-goose.png",
       "title": "Using the Screen Tool kit with goose",
       "link": "https://dev.to/iabdulkarim472/using-the-screen-tool-kit-with-goose-3916",
       "contributor": "Ibrahim Abdulkarim"
     },
     {
+      "type": "social",
+      "thumbnail": "./img/Social-post-how-are-you-using-Goose.png",
+      "title": "How are you using Goose?",
+      "link": "https://www.threads.net/@lymahcodes/post/DCmfASnMvWq?xmt=AQGzNfUQKe2o5zicl8zm6D13opuEIwsatcGmAknzYKCBTg",
+      "contributor": "Lymah123"
+    },
+    {
       "type": "blog",
-      "thumbnail": "./img/using-goosehints-blog-post.png",
+      "thumbnail": "./img/goose-with-openai-blog-post.png",
       "title": "Using Goose with OpenAI",
       "link": "https://dev.to/iabdulkarim472/using-goose-with-openai-8bf",
       "contributor": "Ibrahim Abdulkarim"
