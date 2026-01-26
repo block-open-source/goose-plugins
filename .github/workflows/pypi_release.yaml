@@ -39,7 +39,7 @@ jobs:
           fi
 
       - name: Publish
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+        uses: pypa/gh-action-pypi-publish@ec4db0b4ddc65acdf4bff5fa45ac92d78b56bdf0  # v1.13.0
         if: steps.check_version.outputs.new_version == 'true'
         with:
           user: __token__
